@@ -89,9 +89,10 @@ class CreteRunsTable:
         """ someting """
         with DBConnectionHendler() as db_connection:
             try:
-                motorist = db_connection.session.
-                db_connection.session.delete(motorist)
-                db_connection.session.commit()
+                # motorist = db_connection.session.
+                # db_connection.session.delete(motorist)
+                # db_connection.session.commit()
+                pass
             except:
                 db_connection.session.rollback()
                 raise
