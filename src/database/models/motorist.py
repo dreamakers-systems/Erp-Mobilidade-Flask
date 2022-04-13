@@ -2,10 +2,10 @@
 
 from typing import Dict
 
-from sqlalchemy import String, Column, Integer, JSON
+from sqlalchemy import String, Column, Integer, JSON, DateTime
+from sqlalchemy.orm import relationship
 
 from src.database import Base
-
 
 class Motorists(Base):
     """ Motorist Table """
@@ -13,13 +13,19 @@ class Motorists(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(80), nullable=False, unique=True)
     data_json = Column(JSON)
-
-    def __init__(self, name: str, data_json: Dict) -> None:
-        """ Interface """
-        self.name = name
-        self.data_json = data_json
-
+    runs = Column()
 
     def __rep__(self):
         """True, as all users are active."""
         return f"Usr [name={self.name}]"
+
+class Runs(Base):
+    """ Tabela relacionada a Motorists 
+    """
+    __tablename__ = 'runs'
+    id = Column(Integer, primary_key=True)
+    date_time = Column(DateTime, unique=True)
+    valor = Column(Integer, nullable=False)
+    operation = Column(String)
+
+    
