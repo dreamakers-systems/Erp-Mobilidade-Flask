@@ -11,6 +11,10 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='plugins/fontawesome-free/css/all.min.css')}}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ url_for('static', filename='dist/css/adminlte.min.css')}}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='plugins/bs-stepper/css/bs-stepper.min.css')}}">
+
+  <!-- Tempusdominus Bootstrap 4 -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -56,7 +60,7 @@
           <img src="{{ url_for('static', filename='/images/logo.png')}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block h3">G4 MOBILE</a>
+          <a href="#" class="d-block h3">MOBILIDADE</a>
         </div>
       </div>
 
@@ -69,7 +73,7 @@
             <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                Cadastros
+                Motoristas
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -77,13 +81,19 @@
               <li class="nav-item">
                 <a href="/motorists" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Motoristas</p>
+                  <p>Frota</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/clients" class="nav-link">
+                <a href="/options" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Clientes</p>
+                  <p>Opções</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/motorists/uploads" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Uploads</p>
                 </a>
               </li>
             </ul>
@@ -129,9 +139,81 @@
 
 <!-- jQuery -->
 <script src="{{ url_for('static', filename='plugins/jquery/jquery.min.js')}}"></script>
+<script src="{{ url_for('static', filename='plugins/moment/moment.min.js')}}"></script>
 <!-- Bootstrap 4 -->
 <script src="{{ url_for('static', filename='plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{ url_for('static', filename='dist/js/adminlte.min.js')}}"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="{{ url_for('static', filename='plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
+<!-- dropzonejs -->
+<script src="{{ url_for('static', filename='plugins/dropzone/min/dropzone.min.js')}}"></script>
+<!-- BS-Stepper -->
+<script src="{{ url_for('static', filename='plugins/bs-stepper/js/bs-stepper.min.js')}}"></script>
+<script>
+  $(function () {
+    //Date picker
+    $('#reservationdate').datetimepicker({
+        format: 'L'
+    });
+  })
+  // BS-Stepper Init
+  document.addEventListener('DOMContentLoaded', function () {
+    window.stepper = new Stepper(document.querySelector('.bs-stepper'))
+  })
+
+  // DropzoneJS Demo Code Start
+  Dropzone.autoDiscover = false
+
+  // Get the template HTML and remove it from the doumenthe template HTML and remove it from the doument
+  var previewNode = document.querySelector("#template")
+  previewNode.id = ""
+  var previewTemplate = previewNode.parentNode.innerHTML
+  previewNode.parentNode.removeChild(previewNode)
+
+  var myDropzone = new Dropzone(document.body, { // Make the whole body a dropzone
+    url: "/target-url", // Set the url
+    thumbnailWidth: 80,
+    thumbnailHeight: 80,
+    parallelUploads: 20,
+    previewTemplate: previewTemplate,
+    autoQueue: false, // Make sure the files aren't queued until manually added
+    previewsContainer: "#previews", // Define the container to display the previews
+    clickable: ".fileinput-button" // Define the element that should be used as click trigger to select files.
+  })
+
+  myDropzone.on("addedfile", function(file) {
+    // Hookup the start button
+    file.previewElement.querySelector(".start").onclick = function() { myDropzone.enqueueFile(file) }
+  })
+
+  // Update the total progress bar
+  myDropzone.on("totaluploadprogress", function(progress) {
+    document.querySelector("#total-progress .progress-bar").style.width = progress + "%"
+  })
+
+  myDropzone.on("sending", function(file) {
+    // Show the total progress bar when upload starts
+    document.querySelector("#total-progress").style.opacity = "1"
+    // And disable the start button
+    file.previewElement.querySelector(".start").setAttribute("disabled", "disabled")
+  })
+
+  // Hide the total progress bar when nothing's uploading anymore
+  myDropzone.on("queuecomplete", function(progress) {
+    document.querySelector("#total-progress").style.opacity = "0"
+  })
+
+  // Setup the buttons for all transfers
+  // The "add files" button doesn't need to be setup because the config
+  // `clickable` has already been specified.
+  document.querySelector("#actions .start").onclick = function() {
+    myDropzone.enqueueFiles(myDropzone.getFilesWithStatus(Dropzone.ADDED))
+  }
+  document.querySelector("#actions .cancel").onclick = function() {
+    myDropzone.removeAllFiles(true)
+  }
+  // DropzoneJS Demo Code End
+</script>
 </body>
 </html>
