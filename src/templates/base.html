@@ -11,6 +11,9 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='plugins/fontawesome-free/css/all.min.css')}}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ url_for('static', filename='dist/css/adminlte.min.css')}}">
+
+  <!-- Tempusdominus Bootstrap 4 -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -56,7 +59,7 @@
           <img src="{{ url_for('static', filename='/images/logo.png')}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block h3">G4 MOBILE</a>
+          <a href="#" class="d-block h3">MOBILIDADE</a>
         </div>
       </div>
 
@@ -69,7 +72,7 @@
             <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                Cadastros
+                Motoristas
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -77,13 +80,19 @@
               <li class="nav-item">
                 <a href="/motorists" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Motoristas</p>
+                  <p>Frota</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/clients" class="nav-link">
+                <a href="/options" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Clientes</p>
+                  <p>Opções</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/motorists/uploads" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Uploads</p>
                 </a>
               </li>
             </ul>
@@ -129,9 +138,22 @@
 
 <!-- jQuery -->
 <script src="{{ url_for('static', filename='plugins/jquery/jquery.min.js')}}"></script>
+<script src="{{ url_for('static', filename='plugins/moment/moment.min.js')}}"></script>
 <!-- Bootstrap 4 -->
 <script src="{{ url_for('static', filename='plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{ url_for('static', filename='dist/js/adminlte.min.js')}}"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="{{ url_for('static', filename='plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
+<!-- dropzonejs -->
+<!-- BS-Stepper -->
+<script>
+  $(function () {
+    //Date picker
+    $('#reservationdate').datetimepicker({
+        format: 'L'
+    });
+  })
+</script>
 </body>
 </html>
