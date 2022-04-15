@@ -7,6 +7,7 @@ from flask_cors import CORS
 
 from src.database.querys import MotoristsQuerys
 from src.database.json_schemas import MotoristJsonSchema
+from src. database.querys import RunsQuerys
 
 from .uploads import MotoristsDataParsing
 
@@ -29,14 +30,10 @@ def get_motorits():
 def create():
     "Create a new motorist"
     if request.method == "POST":
-        # name = request.form.get("name")
-        data = request.form.get("data")
-        print(data)
-
-        # comission = request.form.get("comission")
-        # data_json = {"comission": comission}
-        
-        # MotoristsQuerys.create_motorist(name, data_json)
+        name = request.form.get("name")
+        data_json = {"comission": "defout"}
+        MotoristsQuerys.create_motorist(name, data_json)
+        RunsQuerys.create_table(name)
         return redirect(url_for("motorist_app.create"))
 
     return render_template("pages/motorists/create.html")

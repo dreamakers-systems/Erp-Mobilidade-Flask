@@ -6,6 +6,7 @@ import re
 from werkzeug.datastructures import FileStorage
 
 from src.database.querys import MotoristsQuerys
+from src.database.querys import RunsQuerys
 
 class MotoristsDataParsing:
     """Recebe uma requisição e constroi os
@@ -27,8 +28,10 @@ class MotoristsDataParsing:
             data = ParsedMotoristData(motorist).get()
             name = motorist.filename[:-4][29:].replace(" ", "_")
             data_json = {"comission": "defout"}
-            MotoristsQuerys.create_motorist(name, data_json=data_json)
-            MotoristsQuerys.insert(name, data)
+            MotoristsQuerys.create_motorist(name, data_json)
+            RunsQuerys.create_table(name)
+            RunsQuerys.insert(name, data)
+
 
 
 class ParsedMotoristData:
