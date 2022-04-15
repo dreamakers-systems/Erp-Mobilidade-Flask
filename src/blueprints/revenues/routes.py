@@ -4,9 +4,7 @@
 from flask import Blueprint, render_template, redirect, request, url_for
 from src.database.querys import RevenuesQuery
 
-revenues_app = Blueprint(
-    "revenues_app", __name__,
-    url_prefix="/revenues/")
+revenues_app = Blueprint("revenues_app", __name__, url_prefix="/revenues/")
 
 
 @revenues_app.route("/settings", methods=["GET"])
@@ -25,14 +23,13 @@ def create():
         porcent_two = request.form.get("porcent_two")
         porcent_tree = request.form.get("porcent_tree")
         RevenuesQuery.create_motorist_group(
-            group_name,
-            porcent_one,
-            porcent_two,
-            porcent_tree)
+            group_name, porcent_one, porcent_two, porcent_tree
+        )
 
         return redirect(url_for("revenues_app.show"))
 
     return render_template("pages/revenues/create.html")
+
 
 @revenues_app.route("/edit/<porcent_id>", methods=["POST", "GET"])
 def edit(porcent_id):
@@ -46,10 +43,11 @@ def edit(porcent_id):
     #         porcent_two,
     #         porcent_tree)
 
-        # return redirect(url_for("revenues_app.show"))
+    # return redirect(url_for("revenues_app.show"))
     porcent = RevenuesQuery.find(porcent_id)
     print(porcent)
     return render_template("pages/revenues/edit.html", porcent=porcent)
+
 
 @revenues_app.route("/invoices", methods=["POST", "GET"])
 def invoices():
@@ -63,5 +61,5 @@ def invoices():
     #         porcent_two,
     #         porcent_tree)
 
-        # return redirect(url_for("revenues_app.show"))
+    # return redirect(url_for("revenues_app.show"))
     return render_template("pages/revenues/invoices.html")

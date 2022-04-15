@@ -5,13 +5,14 @@ from src.database.models import RunsFactory
 
 
 class RunsQuerys:
-    """ A Consult if name alredy exits """
+    """A Consult if name alredy exits"""
+
     @classmethod
     def create_table(cls, name):
-        """ someting """
+        """someting"""
         with DBConnectionHendler() as db_connection:
             try:
-                
+
                 RunsFactory(name)
                 engine = db_connection.get_engine()
                 RunsBase.metadata.create_all(engine)
@@ -19,20 +20,21 @@ class RunsQuerys:
                 db_connection.session.rollback()
                 ...
             finally:
-                db_connection.session.close()    
-
+                db_connection.session.close()
 
     @classmethod
     def insert(cls, name, data):
-        """ someting """
+        """someting"""
         with DBConnectionHendler() as db_connection:
             try:
                 for item in data:
                     db_connection.session.execute(
-                    "INSERT OR IGNORE INTO {}" \
-                    "(date_time, valor, operation)" \
-                    "VALUES ('{}','{}','{}')".format(
-                    f"RUNS_{name}", item[0], item[1], item[2]))
+                        "INSERT OR IGNORE INTO {}"
+                        "(date_time, valor, operation)"
+                        "VALUES ('{}','{}','{}')".format(
+                            f"RUNS_{name}", item[0], item[1], item[2]
+                        )
+                    )
                 db_connection.session.commit()
             except:
                 db_connection.session.rollback()

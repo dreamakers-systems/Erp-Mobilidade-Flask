@@ -12,6 +12,7 @@ auth = Blueprint("auth", __name__)
 current_app.config["JWT_SECRET_KEY"] = os.environ.get("JWT_KEY")
 jwt = JWTManager(current_app)
 
+
 @auth.route("/token", methods=["POST"])
 def create_token():
     email = request.json.get("email", None)

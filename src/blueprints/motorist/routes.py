@@ -7,16 +7,16 @@ from flask_cors import CORS
 
 from src.database.querys import MotoristsQuerys
 from src.database.json_schemas import MotoristJsonSchema
-from src. database.querys import RunsQuerys
+from src.database.querys import RunsQuerys
 
 from .uploads import MotoristsDataParsing
 
-motorist_app = Blueprint(
-    "motorist_app", __name__,
-    url_prefix="/motorists/")
+motorist_app = Blueprint("motorist_app", __name__, url_prefix="/motorists/")
 
-logging.getLogger('flask_cors').level = logging.DEBUG
-CORS(motorist_app,)
+logging.getLogger("flask_cors").level = logging.DEBUG
+CORS(
+    motorist_app,
+)
 
 
 @motorist_app.route("/", methods=["GET"])
@@ -41,21 +41,21 @@ def create():
 
 @motorist_app.route("/delete", methods=["POST"])
 def delete_motorist():
-    """ Delete a motorist """
+    """Delete a motorist"""
     motorist_id = request.json.get("id")
     print((motorist_id))
     MotoristsQuerys.delete_motorist(motorist_id)
     schema = MotoristJsonSchema()
 
     motorists = {
-        "motorists":[
-            schema.dump(i) for i in MotoristsQuerys.check_motorists()]}
+        "motorists": [schema.dump(i) for i in MotoristsQuerys.check_motorists()]
+    }
     return jsonify(motorists)
 
 
 @motorist_app.route("/uploads", methods=["POST", "GET"])
 def uploads():
-    """ upload datas """
+    """upload datas"""
     if request.method == "POST":
         archives = request.files.getlist("image[]")
         MotoristsDataParsing(archives)
@@ -66,7 +66,7 @@ def uploads():
 
 @motorist_app.route("/settings", methods=["POST", "GET"])
 def settings():
-    """ upload datas """
+    """upload datas"""
     if request.method == "POST":
         return redirect(url_for("motorist_app.settings"))
     return render_template("pages/motorists/settings.html")

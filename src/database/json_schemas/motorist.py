@@ -2,8 +2,11 @@
 
 from marshmallow import Schema
 
+
 class MotoristJsonSchema(Schema):
-    """ Marshmellow schema to load motorist datas """
+    """Marshmellow schema to load motorist datas"""
+
     class Meta:
-        """ To serialize Sql Consult """
+        """To serialize Sql Consult"""
+
         fields = ("id", "name", "data_json")
