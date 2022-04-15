@@ -1,0 +1,17 @@
+
+{% macro wrapper_content(contents) %}
+<div class="content-wrapper">
+  <section class="content-header">
+    <div class="container-fluid">
+    </div>
+  </section>
+
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        {{ contents }}
+      </div>
+    </div>
+  </section>
+</div>
+{% endmacro %}

@@ -1,63 +1,39 @@
 {% extends 'base.html' %}
 
-{% block content %}
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content-header -->
-
-    <!-- Main content -->
-    <div class="content">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col">
-            <div class="card card-secondary">
-                <div class="card-header">
-                  <h3 class="card-title">Cadastrar Motorista</h3>
-                </div>
-                <!-- /.card-header -->
-                <!-- form start -->
-                <form method="post" enctype="multipart/form-data">
-
-                  <div class="card-body">
-                    <div class="form-group">
-                      <label for="exampleInputFile">File input</label>
-                      <div class="input-group">
-                        <div class="custom-file">
-                          
-                          <input 
-                            type="file" 
-                            class="custom-file-input" 
-                            name="image[]" 
-                            multiple="multiple">
-                            >
-                            
-                          <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                        </div>
-                        <div class="input-group-append">
-                          <span class="input-group-text">Upload</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="card-footer">
-                    <button type="submit" class="btn btn-primary float-right">Cadastrar</button>
-                  </div>
-                </form>
+{% macro upload() %}
+<div class="col">
+  <div class="card card-secondary">
+      <div class="card-header">
+        <h3 class="card-title">Cadastrar Motorista</h3>
+      </div>
+      <form method="post" enctype="multipart/form-data">
+        <div class="card-body">
+          <div class="form-group">
+            <label for="exampleInputFile">File input</label>
+            <div class="input-group">
+              <div class="custom-file">
+                <input 
+                  type="file" 
+                  class="custom-file-input" 
+                  name="image[]" 
+                  multiple="multiple">
+                  >
+                <label class="custom-file-label" for="exampleInputFile">Choose file</label>
               </div>
+              <div class="input-group-append">
+                <span class="input-group-text">Upload</span>
+              </div>
+            </div>
           </div>
-          <!-- /.col-md-6 -->
         </div>
-        <!-- /.row -->
-      </div><!-- /.container-fluid -->
+        <div class="card-footer">
+          <button type="submit" class="btn btn-primary float-right">Cadastrar</button>
+        </div>
+      </form>
     </div>
-    <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
+</div>
+{% endmacro %}
+
+{% block content %}
+{{ wrapper_content(upload()) }}
 {% endblock %}

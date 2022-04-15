@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% macro  show() %}
+<div class="col">
+  <div class="card text-center">
+    <div class="card-header">
+      <h3 class="card-title">
+        <i class="far fa-chart-bar"></i>
+        Regras de Porcentagem
+      </h3>
+      <!-- <div class="card-tools">
+        <div class="btn-group" id="realtime" data-toggle="btn-toggle">
+          <a href="create" type="button" class="btn btn-primary btn-sm" data-toggle="off">Cadastrar</a>
+        </div>
+      </div> -->
+    </div>
+    <div class="card-body">
+      <table class="table table-bordered table table-hover table-head-fixed table-striped">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Opções</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for porcent in porcents %}
+          <tr>
+            <td>{{porcent.id}}</td>
+            <td>{{porcent.name}}</td>
+            <td>
+              <div class="input-group-prepend float-right" >
+                <button type="button" class="btn btn-default dropdown-toggle " data-toggle="dropdown">
+                  Action
+                </button>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="edit/{{ porcent.id }}">Editar</a>
+                </div>
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endmacro %}
+
+{% block content %}
+{{ wrapper_content(show()) }}
+{% endblock %}

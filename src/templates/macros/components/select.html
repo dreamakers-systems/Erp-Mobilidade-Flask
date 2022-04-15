@@ -1,0 +1,7 @@
+{% macro select(options) %}
+<select class="form-control select2" style="width: 100%;">
+    {% for item in options %}
+        <option>{{ item }}</option>
+    {% endfor %}
+  </select>
+{% endmacro %}

@@ -1,59 +1,26 @@
 {% extends 'base.html' %}
 
-{% block content %}
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
+{% macro create() %}
+<div class="col">
+  <div class="card card-secondary">
+    <div class="card-header">
+      <h3 class="card-title">Cadastrar Motorista</h3>
     </div>
-    <!-- /.content-header -->
-
-    <!-- Main content -->
-    <div class="content">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col">
-            <div class="card card-secondary">
-                <div class="card-header">
-                  <h3 class="card-title">Cadastrar Motorista</h3>
-                </div>
-                <!-- /.card-header -->
-                <!-- form start -->
-                <form method="post">
-                  <div class="card-body">
-                    <div class="form-group">
-                      <label for="exampleInputEmail1">Nome do Motorista</label>
-                      <input type="text" class="form-control" name="name" id="name" placeholder="Ex: ...">
-                    </div>
-                   <!-- Date -->
-                    <div class="form-group">
-                      <label>Date:</label>
-                        <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                            <input name="data" type="text" class="form-control datetimepicker-input" data-target="#reservationdate"/>
-                            <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
-                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                            </div>
-                        </div>
-                    </div>
-                  </div>
-                  <div class="card-footer">
-                    <button type="submit" class="btn btn-primary float-right">Cadastrar</button>
-                  </div>
-                </form>
-              </div>
-          </div>
-          <!-- /.col-md-6 -->
+    <form method="post">
+      <div class="card-body">
+        <div class="form-group">
+          <label for="exampleInputEmail1">Nome do Motorista</label>
+          <input type="text" class="form-control" name="name" id="name" placeholder="Ex: ...">
         </div>
-        <!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content -->
+      </div>
+      <div class="card-footer">
+        <button type="submit" class="btn btn-primary float-right">Cadastrar</button>
+      </div>
+    </form>
   </div>
-  <!-- /.content-wrapper -->
-  <!-- Page specific script -->
+</div>
+{% endmacro %}
 
+{% block content %}
+{{ wrapper_content(create()) }}
 {% endblock %}

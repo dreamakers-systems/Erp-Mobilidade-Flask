@@ -1,0 +1,29 @@
+{% macro scripts() %}
+<!-- jQuery -->
+<script src="{{ url_for('static', filename='plugins/jquery/jquery.min.js')}}"></script>
+<script src="{{ url_for('static', filename='plugins/moment/moment.min.js')}}"></script>
+<!-- Bootstrap 4 -->
+<script src="{{ url_for('static', filename='plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<!-- AdminLTE App -->
+<script src="{{ url_for('static', filename='dist/js/adminlte.min.js')}}"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="{{ url_for('static', filename='plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
+<!-- daterangepicker -->
+<script src="{{ url_for('static', filename='plugins/moment/moment.min.js')}}"></script>
+<script src="{{ url_for('static', filename='plugins/daterangepicker/daterangepicker.js')}}"></script>
+<script>
+  $(function () {
+    //Date picker
+    $('#reservationdate').datetimepicker({
+        format: 'L'
+    });
+
+    $('#reservationtime').daterangepicker({
+      timePicker: true,
+      timePickerIncrement: 30,
+      locale: {format: 'MM/DD/YYYY hh:mm A'}
+    })
+
+  })
+</script>
+{% endmacro %}
