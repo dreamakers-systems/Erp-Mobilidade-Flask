@@ -1,0 +1,17 @@
+{% from "macros/components/daterange.html" import date_range %}
+{% from "macros/components/select.html" import select %}
+
+
+{% macro  card_primary(component_args, tittle, card_body, card_footer) %}
+  <div class="card card-primary">
+    <div class="card-header">
+      <h3 class="card-title">{{ tittle }}</h3>
+    </div>
+    <div class="card-body">
+      {{ card_body }}
+    </div>
+      <div class="card-footer">
+        {{ card_footer }}
+      </div>
+  </div>
+{% endmacro %}

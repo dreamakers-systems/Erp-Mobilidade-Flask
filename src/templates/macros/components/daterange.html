@@ -1,8 +1,8 @@
-{% macro date_range() %}
+{% macro date_range(name) %}
 <div class="input-group">
     <div class="input-group-prepend">
       <span class="input-group-text"><i class="far fa-clock"></i></span>
     </div>
-    <input type="text" class="form-control float-right" id="reservationtime">
+    <input type="text" class="form-control float-right" id="reservationtime" name="{{ name }}">
 </div>
 {% endmacro %}

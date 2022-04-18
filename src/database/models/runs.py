@@ -10,7 +10,7 @@ def RunsFactory(name: str):
 
         __tablename__ = f"RUNS_{name}"
         id = Column(Integer, primary_key=True)
-        date_time = Column(DateTime, unique=False)
+        date_time = Column(DateTime, unique=True)
         valor = Column(Integer, nullable=False)
         operation = Column(String)
         observation = Column(String)
