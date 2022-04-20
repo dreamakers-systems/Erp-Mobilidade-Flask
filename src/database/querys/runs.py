@@ -53,7 +53,7 @@ class RunsQuerys:
         with DBConnectionHendler() as db_connection:
             try:
                 data_1 =  datetime(2021, 1, 12)
-                query = db_connection.session.
+                query = db_connection.session
                 print(query)
             except:
                 db_connection.session.rollback()
