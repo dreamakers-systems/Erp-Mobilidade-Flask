@@ -1,4 +1,4 @@
-""" Running Appliction """
+""" Executando a aplicação """
 
 from src import init_app
 
