@@ -2,16 +2,29 @@
 # pylint: disable=consider-using-f-string
 """ User Querys"""
 
-
+from typing import List
 from src.database.db_connection import DBConnectionHendler
 from src.database.models import Motorists
+
 
 
 class MotoristsQuerys:
     """A Consult if name alredy exits"""
 
     @classmethod
-    def check_name(cls, name):
+    def show(cls) -> List:
+        """ Retorna todos os motoristas na base de dados """
+        with DBConnectionHendler() as db_connection:
+            try:
+                return db_connection.session.query(Motorists).all()
+            except:
+                db_connection.session.rollback()
+                raise
+            finally:
+                db_connection.session.close()
+
+    @classmethod
+    def check_name(cls, name:  str):
         """someting"""
         with DBConnectionHendler() as db_connection:
             try:
@@ -24,17 +37,6 @@ class MotoristsQuerys:
             finally:
                 db_connection.session.close()
 
-    @classmethod
-    def check_motorists(cls):
-        """someting"""
-        with DBConnectionHendler() as db_connection:
-            try:
-                return db_connection.session.query(Motorists).all()
-            except:
-                db_connection.session.rollback()
-                raise
-            finally:
-                db_connection.session.close()
 
     @classmethod
     def create_motorist(cls, name, data_json):

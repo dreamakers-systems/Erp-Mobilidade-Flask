@@ -9,7 +9,7 @@ from src.database.querys import MotoristsQuerys
 from src.database.json_schemas import MotoristJsonSchema
 from src.database.querys import RunsQuerys
 
-from .uploads import MotoristsDataParsing
+from .src.uploads import MotoristsDataParsing
 
 motorist_app = Blueprint("motorist_app", __name__, url_prefix="/motorists/")
 
@@ -46,7 +46,6 @@ def delete_motorist():
     print((motorist_id))
     MotoristsQuerys.delete_motorist(motorist_id)
     schema = MotoristJsonSchema()
-
     motorists = {
         "motorists": [schema.dump(i) for i in MotoristsQuerys.check_motorists()]
     }

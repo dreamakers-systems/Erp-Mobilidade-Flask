@@ -1,0 +1,65 @@
+{% extends 'base.html' %} 
+
+
+
+{% macro _body() %}
+<table class="table table-head-fixed table-striped text-center table-responsive">
+    <thead>
+        <tr>
+            <th class="col-1">ID</th>
+            <th class="col-4">Nome</th>
+            <th class="col-2">Equipamento</th>
+            <th class="col-2">Estado</th>
+            <th class="col-3">Ultima Atualização</th>
+            <th class="col-1">Ações</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for client in clients %}
+        <tr>
+            <td>{{ client.id }}</td>
+            <td>{{ client.name }}</td>
+            <td>{{ client.name }}</td>
+            <td>{{ client.name }}</td>
+            <td>{{ client.name }}</td>
+            <td>
+                <div class="input-group-prepend float-right">
+                    <button type="button" class="btn btn-default dropdown-toggle " data-toggle="dropdown">
+                            Action
+                        </button>
+
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="edite/{{client.id}}">Editar</a>
+                        <a class="dropdown-item" href="delete/{{client.id}}">Deletar</a>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endmacro %}
+
+
+{% macro mostrar() %}
+<div class="col">
+    {{card_primary(
+        title="clients", 
+
+        card_tools=buttons(
+            link="novo",
+            button_type="button",
+            _class="btn-primary btn-sm",
+            button_text="Cadastrar"),
+
+        card_body=_body()
+        )}}
+</div>
+{% endmacro %}
+
+{% block content %}
+{{ wrapper_content(
+    mostrar()
+) }}
+{% endblock %}

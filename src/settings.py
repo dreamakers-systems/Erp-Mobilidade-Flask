@@ -1,5 +1,9 @@
 # pylint: disable=too-few-public-methods
-""" Objects with flask configurations """
+""" Configurações para o projeto 
+Para passar determinadas variaveis e constantes para o sistemas 
+esteremos utilizando objetos com diferentes propriedades para 
+cada ambiente. Para setar esse ambiente va para 
+"""
 
 import os
 
@@ -8,11 +12,9 @@ basedir = os.path.abspath(os.path.dirname(__name__))
 
 
 class Config:
-    """Basic configs for all project"""
+    """Configurações globais para todo o projeto"""
 
     SECRET_KEY = os.environ.get("SECRET_KEY")
-    # SQLALCHEMY_COMMIT_ON_TEARDOWN = True
-    # SQLALCHEMY_TRACK_MODIFICATIONS = False
     UPLOAD_FOLDER = "/media"
     ALLOWED_EXTENSIONS = {
         "txt",
@@ -20,7 +22,7 @@ class Config:
 
 
 class DevelopmentConfig(Config):
-    """Development configs"""
+    """ Ambiente de desenvolvimento"""
 
     DEBUG = False
     SQLALCHEMY_DATABASE_URI = "sqlite:///" + os.path.join(basedir, "dev-data.db")
@@ -28,13 +30,13 @@ class DevelopmentConfig(Config):
 
 
 class TestingConfig(Config):
-    """Testing configs"""
+    """ Ambiente de testes """
 
     DEBUG = False
     TESTING = True
 
 
 class ProductionConfig(Config):
-    """Production config"""
+    """ Ambiente de produção """
 
     DEBUG = False

@@ -2,7 +2,7 @@
 
 
 from flask import Blueprint, render_template, redirect, request, url_for
-from src.database.querys import RevenuesQuery
+from src.database.querys import RevenuesQuery, MotoristsQuerys, RunsQuerys
 
 revenues_app = Blueprint("revenues_app", __name__, url_prefix="/revenues/")
 
@@ -51,15 +51,18 @@ def edit(porcent_id):
 
 @revenues_app.route("/invoices", methods=["POST", "GET"])
 def invoices():
-    "Create a new motorist"
-    # if request.method == "POST":
-    #     porcent_one = request.form.get("porcent_one")
-    #     porcent_two = request.form.get("porcent_two")
-    #     porcent_tree = request.form.get("porcent_tree")
-    #     RevenuesQuery.update_porcent(
-    #         porcent_one,
-    #         porcent_two,
-    #         porcent_tree)
+    " Exporta o faturamento dos motoristas "
+    if request.method == "POST":
+        option = request.form.get("option")
+        datetime_range = request.form.get("daterange")
+        date_one = datetime_range[:10]
+        date_two = datetime_range[-19:-9]
+        query = RunsQuerys.search_daterange(option, date_range=[date_one, date_two])
+        
 
-    # return redirect(url_for("revenues_app.show"))
-    return render_template("pages/revenues/invoices.html")
+        print(option, date_one)
+        print(query)
+        return redirect(url_for("revenues_app.invoices"))
+    motorists = list(map(lambda motorist: motorist.name, MotoristsQuerys.check_motorists()))
+    motorists.insert(0, "TODOS")
+    return render_template("pages/revenues/invoices.html", motorists=motorists)

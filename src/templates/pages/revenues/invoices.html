@@ -1,35 +1,30 @@
 {% extends 'base.html' %}
 
-{% macro  invoices() %}
-<div class="col">
-  <div class="card card-primary">
-    <div class="card-header">
-      <h3 class="card-title">General Elements</h3>
+{% macro _form() %}
+<form method="post">
+  <div class="form-group">
+    <div class="row">
+      <div class="col">
+        {{ date_range(name="daterange") }}
+      </div>
+      <div class="col-3">
+        {{ select(motorists, name="option") }}
+      </div>
+      <div class="col-1">
+        <button type="submit" class="btn btn-primary float-right">Pesquisar</button>
+      </div>
     </div>
-    <form>
-      <div class="card-body">
-        <div class="form-group">
-          <div class="row">
-            <div class="col">
-              {{ date_range() }}
-            </div>
-            <div class="col-3">
-              {{ select(["mariano", "wendy"]) }}
-            </div>
-            <div class="col-1">
-              <button type="submit" class="btn btn-primary float-right">Cadastrar</button>
-            </div>
-          </div>
-        </div>
-
-      </div>
-      <div class="card-footer">
-      </div>
-    </form>
   </div>
-</div>  
+</form>
+{% endmacro %}
+
+
+{% macro _content() %}
+<div class="col">
+{{ card_primary(tittle="Fechamento", card_body=_form()) }}
+</div>
 {% endmacro %}
 
 {% block content %}
-{{ wrapper_content(invoices()) }}
+{{ wrapper_content(_content()) }}
 {% endblock %}
