@@ -1,0 +1,30 @@
+{% extends 'base.html' %} 
+
+
+
+{% macro _body() %}
+<h1>exemplo</h1>
+{% endmacro %}
+
+
+{% macro mostrar() %}
+<div class="col">
+
+    {{card_primary(
+
+        title="Exemplo", 
+
+        card_tools=buttons(
+            link="novo",
+            button_type="button",
+            _class="btn-default",
+            button_text="Novo"),
+
+        card_body=_body()
+        )}}
+</div>
+{% endmacro %}
+
+{% block content %}
+{{ wrapper_content(mostrar()) }}
+{% endblock %}

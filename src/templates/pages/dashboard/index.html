@@ -1,0 +1,194 @@
+{% extends 'base.html' %} 
+
+
+
+{% macro fist_body() %}
+<div class="row">
+  <div class="col">
+    <p class="text-center">
+      <strong>Sales: 1 Jan, 2014 - 30 Jul, 2014</strong>
+    </p>
+
+    <div class="chart">
+      <!-- Sales Chart Canvas -->
+      <canvas id="salesChart" height="180" style="height: 180px;"></canvas>
+    </div>
+    <div 
+      id="dataProps" 
+      segunda=10
+      terca=25
+      quarta=30
+      quinta=24
+      sexta=50
+      sabado=20
+      domingo=30>
+    </div>
+    <!-- /.chart-responsive -->
+  </div>
+</div>
+{% endmacro %}
+
+{% macro second_body() %}
+<div class="row">
+  <div class="col">
+    <div class="chart-responsive">
+      <canvas id="pieChart" height="200"></canvas>
+    </div>
+    <!-- ./chart-responsive -->
+  </div>
+</div>
+{% endmacro %}
+{% macro second_footer() %}
+<ul class="nav nav-pills flex-column">
+  <li class="nav-item">
+    <a href="#" class="nav-link">
+      Cancelamentos
+      <span class="float-right text-danger">
+        <i class="fas fa-arrow-down text-sm"></i>
+        12%</span>
+    </a>
+  </li>
+  <li class="nav-item">
+    <a href="#" class="nav-link">
+      Corridas
+      <span class="float-right text-success">
+        <i class="fas fa-arrow-up text-sm"></i> 4%
+      </span>
+    </a>
+  </li>
+  <li class="nav-item">
+    <a href="#" class="nav-link">
+      Agendamentos
+      <span class="float-right text-warning">
+        <i class="fas fa-arrow-left text-sm"></i> 0%
+      </span>
+    </a>
+  </li>
+</ul>
+{% endmacro %}
+
+{% macro _footer() %}
+<div class="row">
+  <div class="col-sm-4 col-4">
+    <div class="description-block">
+      <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> 17%</span>
+      <h5 class="description-header">R$35,210.43</h5>
+      <span class="description-text">Faturamento</span>
+    </div>
+    <!-- /.description-block -->
+  </div>
+  <!-- /.col -->
+  <div class="col-sm-4 col-4">
+    <div class="description-block">
+      <span class="description-percentage text-warning"><i class="fas fa-caret-left"></i> 0%</span>
+      <h5 class="description-header">R$10,390.90</h5>
+      <span class="description-text">Saidas</span>
+    </div>
+    <!-- /.description-block -->
+  </div>
+  <!-- /.col -->
+  <div class="col-sm-4 col-4">
+    <div class="description-block">
+      <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> 20%</span>
+      <h5 class="description-header">R$24,813.53</h5>
+      <span class="description-text">Total em Caixa</span>
+    </div>
+    <!-- /.description-block -->
+  </div>
+</div>
+<!-- /.row -->
+{% endmacro %}
+
+
+{% macro mostrar() %}   
+<div class="row">
+    <div class="col-lg-3 col-6">
+      <!-- small card -->
+      <div class="small-box bg-info">
+        <div class="inner">
+          <h3>150</h3>
+
+          <h5>Motoristas</h5>
+        </div>
+        <div class="icon">
+          <i class="fas fa-shopping-cart"></i>
+        </div>
+        <a href="#" class="small-box-footer">
+          Mais Informações <i class="fas fa-arrow-circle-right"></i>
+        </a>
+      </div>
+    </div>
+
+    <div class="col-lg-3  col-6">
+        <!-- small card -->
+        <div class="small-box bg-danger">
+          <div class="inner">
+            <h3>44</h3>
+  
+            <h5>Clientes</h5>
+          </div>
+          <div class="icon">
+            <i class="fas fa-user-plus"></i>
+          </div>
+          <a href="#" class="small-box-footer">
+            Mais Informações <i class="fas fa-arrow-circle-right"></i>
+          </a>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-6">
+      <!-- small card -->
+      <div class="small-box bg-success">
+        <div class="inner">
+          <h3>53</h3>
+
+          <h5>Corridas</h5>
+        </div>
+        <div class="icon">
+          <i class="fas fa-flag"></i>
+        </div>
+        <a href="#" class="small-box-footer">
+          Mais Informações <i class="fas fa-arrow-circle-right"></i>
+        </a>
+      </div>
+    </div>
+
+    <div class="col-lg-3 col-6">
+        <!-- small card -->
+        <div class="small-box bg-warning">
+          <div class="inner">
+            <h3>53</h3>
+  
+            <h5>Agendamentos</h5>
+          </div>
+          <div class="icon">
+            <i class="fas fa-flag"></i>
+          </div>
+          <a href="#" class="small-box-footer">
+            Mais Informações <i class="fas fa-arrow-circle-right"></i>
+          </a>
+        </div>
+    </div>
+</div>
+<div class="row">
+  <div class="col-lg-9 col">
+    {{ card_primary(
+    card_body=fist_body(),
+    _class="text-center",
+    card_footer=_footer()
+    ) }}
+  </div>
+  <div class="col-lg-3 col">
+    {{ card_primary(
+    card_body=second_body(),
+    card_footer=second_footer(),
+    _class="text-center",
+    ) }}
+  </div>
+</div>
+
+{% endmacro %}
+
+{% block content %}
+{{ wrapper_content(mostrar()) }}
+{% endblock %}

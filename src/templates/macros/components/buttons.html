@@ -1,0 +1,10 @@
+
+{% macro buttons(link, button_type, _class, button_text) %}
+    <button
+        onclick="window.location.href = '{{ link }}'"
+        href="{{ link }}" 
+        type="{{ button_type }}" 
+        class="btn {{ _class }}" 
+        data-toggle="off">{{ button_text }}
+    </button>
+{% endmacro %}

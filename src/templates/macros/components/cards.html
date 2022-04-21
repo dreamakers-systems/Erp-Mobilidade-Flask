@@ -2,16 +2,35 @@
 {% from "macros/components/select.html" import select %}
 
 
-{% macro  card_primary(component_args, tittle, card_body, card_footer) %}
-  <div class="card card-primary">
+{% macro  card_primary(component_args, title, card_body, card_footer, card_tools, is_form, form_action, _class ) %}
+  <div class="card card {{ _class }} ">
+
     <div class="card-header">
-      <h3 class="card-title">{{ tittle }}</h3>
+      <h3 class="card-title">
+        <i class="far fa-chart-bar"></i>
+        {{ title }}
+      </h3>
+      <div class="card-tools">
+        <div class="btn-group" id="realtime" data-toggle="btn-toggle">
+          {{ card_tools }}
+        </div>
+      </div>
     </div>
-    <div class="card-body">
-      {{ card_body }}
-    </div>
+
+    {% if is_form == True %}
+    <form action="{{form_action}}" method="post">
+    {% endif %}
+
+      <div class="card-body">
+        {{ card_body }}
+      </div>
+
       <div class="card-footer">
         {{ card_footer }}
       </div>
+
+    {% if is_form == True %}
+    </form>
+    {% endif %}
   </div>
 {% endmacro %}
