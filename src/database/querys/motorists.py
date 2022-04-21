@@ -12,6 +12,18 @@ class MotoristsQuerys:
     """A Consult if name alredy exits"""
 
     @classmethod
+    def show(cls) -> List:
+        """ Retorna todos os motoristas na base de dados """
+        with DBConnectionHendler() as db_connection:
+            try:
+                return db_connection.session.query(Motorists).all()
+            except:
+                db_connection.session.rollback()
+                raise
+            finally:
+                db_connection.session.close()
+
+    @classmethod
     def check_name(cls, name:  str):
         """someting"""
         with DBConnectionHendler() as db_connection:
@@ -25,17 +37,6 @@ class MotoristsQuerys:
             finally:
                 db_connection.session.close()
 
-    @classmethod
-    def check_motorists(cls) -> List:
-        """ Retorna todos os motoristas na base de dados """
-        with DBConnectionHendler() as db_connection:
-            try:
-                return db_connection.session.query(Motorists).all()
-            except:
-                db_connection.session.rollback()
-                raise
-            finally:
-                db_connection.session.close()
 
     @classmethod
     def create_motorist(cls, name, data_json):

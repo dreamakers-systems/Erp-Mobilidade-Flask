@@ -16,13 +16,13 @@
     </thead>
 
     <tbody>
-        {% for cliente in clientes %}
+        {% for client in clients %}
         <tr>
-            <td>{{ cliente.id }}</td>
-            <td>{{ cliente.nome }}</td>
-            <td>{{ cliente.equipamento }}</td>
-            <td>{{ cliente.estado }}</td>
-            <td>{{ cliente.data }}</td>
+            <td>{{ client.id }}</td>
+            <td>{{ client.name }}</td>
+            <td>{{ client.name }}</td>
+            <td>{{ client.name }}</td>
+            <td>{{ client.name }}</td>
             <td>
                 <div class="input-group-prepend float-right">
                     <button type="button" class="btn btn-default dropdown-toggle " data-toggle="dropdown">
@@ -30,8 +30,8 @@
                         </button>
 
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="edite/{{cliente.id}}">Editar</a>
-                        <a class="dropdown-item" href="delete/{{cliente.id}}">Deletar</a>
+                        <a class="dropdown-item" href="edite/{{client.id}}">Editar</a>
+                        <a class="dropdown-item" href="delete/{{client.id}}">Deletar</a>
                     </div>
                 </div>
             </td>
@@ -45,7 +45,7 @@
 {% macro mostrar() %}
 <div class="col">
     {{card_primary(
-        title="Clientes", 
+        title="clients", 
 
         card_tools=buttons(
             link="novo",
