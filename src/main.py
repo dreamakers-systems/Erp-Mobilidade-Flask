@@ -1,77 +1,68 @@
 # pylint: disable=import-outside-toplevel
 """ Aplication Factory """
 
-from flask import Flask, request, make_response
-from flask_cors import CORS
+from flask import Flask
 
 
-def init_app():
-    "Factory method for create the Flask App"
-    app = Flask(
-        __name__,
-    )
-    cors_origin = ["http://192.168.0.105:3000", "http://localhost:3000"]
+def init_app() -> Flask:
+    """ init_app é uma fectory que retorna 
+    uma instancia da aplcação Flask.
+    
+    Para configurar a aplicação deve-se Intanciar 
+    o objeto de configuração de acordo com o ambiente.
+    
+    O banco de dodos é manipulado através da biblioteca
+    SQLAlchemy. Todos os arquivos para interação com
+    o banco de dados esta em ./src/database/, sendo que 
+    dentro desse diretorio existe outras duas pastas essenciais,
+    que são:
+    ../models que contens os models da aplicão e 
+    ../querys que contem as interações com o banco de dados 
+    
+    
+    SQLAlchemy - Website: https://www.sqlalchemy.org/
+    
+    As Blueprints da apicação estão setadas detro de
+    ./src/blueprints/blueprint_name/. Cada uma
+    possui um url proprio para suas rotas que é 
+    setado em url_prefix. Ela pode conter um diretorio 
+    src para manter os objetos utilizados pela blueprints 
+    
+    """
+    
+    app = Flask(__name__)
 
-    CORS(
-        app,
-        resources={r"/motorists/*": {"origins": cors_origin}},
-        supports_credentials=True,
-    )
-
-    ### CORS section
-    @app.after_request
-    def after_request_func(response):
-        origin = request.headers.get("Origin")
-        if request.method == "OPTIONS":
-            response = make_response()
-            response.headers.add("Access-Control-Allow-Credentials", "true")
-            response.headers.add(
-                "Accept-Language", "pt-BR,pt;q=0.8,en-US;q=0.5,en;q=0.3"
-            )
-            response.headers.add("Accept-Encoding", "gzip, deflate")
-            response.headers.add(
-                "Access-Control-Allow-Headers",
-                "Content-Type, authorization, x-csrf-token",
-            )
-            response.headers.add("Access-Control-Request-Headers", "Content-type")
-
-            response.headers.add(
-                "Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, PATCH, DELETE"
-            )
-
-            response.headers.add("Access-Control-Allow-Origin", origin)
-
-        return response
-
-    ### end CORS section
+    # Setando configurações da aplicação
     from .settings import Config
-
     app.config.from_object(Config)
 
-    # Database
+    # Configurando banco de dados
     from .database import DBConnectionHendler
     from .database import Base
 
     db_connection = DBConnectionHendler()
     engine = db_connection.get_engine()
 
+    # Criando um contexto para a aplicação.
+    # Referencia: https://flask.palletsprojects.com/en/2.1.x/appcontext/
     with app.app_context():
+        
+        # Registrando as Blueprints: https://flask.palletsprojects.com/en/2.1.x/blueprints/
 
-        # from .core import auth
-        # app.register_blueprint(auth)
+        from .blueprints import dashboard_app
+        app.register_blueprint(dashboard_app)
 
         from .blueprints import motorist_app
-
         app.register_blueprint(motorist_app)
 
         from .blueprints import clients_app
-
         app.register_blueprint(clients_app)
 
         from .blueprints import revenues_app
-
         app.register_blueprint(revenues_app)
 
+        # Criando tabelas que não existem e estão
+        # presentes na engine.
         Base.metadata.create_all(engine)
 
         return app
