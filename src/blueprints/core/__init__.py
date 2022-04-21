@@ -1,1 +1,1 @@
-from .main import auth
+from .routes import core_app
