@@ -1,9 +1,7 @@
 """ Motorist Routes """
 
-import logging
 
 from flask import Blueprint, jsonify, render_template, request, redirect, url_for
-from flask_cors import CORS
 
 from src.database.querys import MotoristsQuerys
 from src.database.json_schemas import MotoristJsonSchema
@@ -12,11 +10,6 @@ from src.database.querys import RunsQuerys
 from .src.uploads import MotoristsDataParsing
 
 motorist_app = Blueprint("motorist_app", __name__, url_prefix="/motorists/")
-
-logging.getLogger("flask_cors").level = logging.DEBUG
-CORS(
-    motorist_app,
-)
 
 
 @motorist_app.route("/", methods=["GET"])
