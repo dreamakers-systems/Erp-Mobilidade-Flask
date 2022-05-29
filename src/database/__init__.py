@@ -1,5 +1,4 @@
-""" Dander Init """
+"""Dander Init"""
 
-from .base import Base
-from .base import RunsBase
+from .base import Base, RunsBase
 from .db_connection import DBConnectionHendler

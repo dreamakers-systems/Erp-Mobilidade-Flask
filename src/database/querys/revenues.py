@@ -4,7 +4,9 @@ from src.database.models import RevenuesPorcents
 
 class RevenuesQuery:
     @classmethod
-    def create_motorist_group(cls, name, porcent_one, porcent_two, porcent_tree):
+    def create_motorist_group(
+        cls, name, porcent_one, porcent_two, porcent_tree
+    ):
         """someting"""
         with DBConnectionHendler() as db_connection:
             try:

@@ -1,4 +1,4 @@
-""" Marshmellow schemas to load Json datas """
+"""Marshmellow schemas to load Json datas"""
 
 from marshmallow import Schema
 
@@ -9,4 +9,4 @@ class MotoristJsonSchema(Schema):
     class Meta:
         """To serialize Sql Consult"""
 
-        fields = ("id", "name", "data_json")
+        fields = ('id', 'name', 'data_json')

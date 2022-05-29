@@ -1,6 +1,7 @@
-""" Sql Operatison with Sql Alchemy """
+"""Sql Operatison with Sql Alchemy"""
 
-from .motorists import MotoristsQuerys
 from .clients import ClientQuerys
-from .runs import RunsQuerys
+from .motorists import MotoristsQuerys
 from .revenues import RevenuesQuery
+from .runs import RunsQuerys
+from .users import UserQuerys

@@ -1,12 +1,11 @@
-""" Receave mmotorist runs """
+"""Receave mmotorist runs"""
 
 import datetime
 import re
 
 from werkzeug.datastructures import FileStorage
 
-from src.database.querys import MotoristsQuerys
-from src.database.querys import RunsQuerys
+from src.database.querys import MotoristsQuerys, RunsQuerys
 
 
 class MotoristsDataParsing:
@@ -28,8 +27,8 @@ class MotoristsDataParsing:
         """Set name for the motorist"""
         for motorist in self.request_files:
             data = ParsedMotoristData(motorist).get()
-            name = motorist.filename[:-4][29:].replace(" ", "_")
-            data_json = {"comission": "defout"}
+            name = motorist.filename[:-4][29:].replace(' ', '_')
+            data_json = {'comission': 'defout'}
             MotoristsQuerys.create_motorist(name, data_json)
             RunsQuerys.create_table(name)
             RunsQuerys.insert(name, data)
@@ -44,7 +43,7 @@ class ParsedMotoristData:
     def __init__(self, talk: FileStorage):
         """Recebe uma conversa"""
         self.data_frame = []
-        self.filter_talk(talk, "G4 MOBILE", "reais")
+        self.filter_talk(talk, 'G4 MOBILE', 'reais')
 
     def get(self):
         """Metodo para acessar o dataframe"""
@@ -52,12 +51,14 @@ class ParsedMotoristData:
 
     def get_datetime(self, line: str) -> str:
         """Realiza o parsing da data"""
-        date = re.findall(r"\d+/\d+/\d+", line)
-        date = datetime.datetime.strptime(date[0], "%d/%m/%Y").strftime("%Y-%m-%d")
+        date = re.findall(r'\d+/\d+/\d+', line)
+        date = datetime.datetime.strptime(date[0], '%d/%m/%Y').strftime(
+            '%Y-%m-%d'
+        )
         if not date:
             date = self.data_frame[-1][0]
-        hour = re.findall(r"\d+\:\d+", line)
-        hour = hour[0] + ":00"
+        hour = re.findall(r'\d+\:\d+', line)
+        hour = hour[0] + ':00'
 
         try:
             if date_time == self.data_frame[-1][0]:
@@ -65,22 +66,22 @@ class ParsedMotoristData:
                 date_time_list = list(date_time)
                 date_time_list[14] = correction[0]
                 date_time_list[15] = correction[1]
-                date_time = "".join(date_time_list)
+                date_time = ''.join(date_time_list)
                 print(date_time, self.data_frame[-1])
         except Exception as error:
             print(error)
-        return f"{date} {hour}"
+        return f'{date} {hour}'
 
     def get_valor(self, line: str) -> str:
         """Realiza o parsing do valor"""
-        return re.findall(r"\d+\s+reais", line)[0][:-6]
+        return re.findall(r'\d+\s+reais', line)[0][:-6]
 
     def get_operation(self, line: str) -> str:
         """Realiza o parsing do valor"""
-        if "desconto no boleto" in line:
-            operation = "-"
+        if 'desconto no boleto' in line:
+            operation = '-'
         else:
-            operation = "+"
+            operation = '+'
         return operation
 
     def filter_talk(self, talk, name, rule):
@@ -90,7 +91,7 @@ class ParsedMotoristData:
             datetime | valor | operation
         """
         for line in talk:
-            line = line.decode("utf-8")
+            line = line.decode('utf-8')
             if name and rule in line:  # pylint: disable=simplifiable-condition
                 try:
                     format_line = [

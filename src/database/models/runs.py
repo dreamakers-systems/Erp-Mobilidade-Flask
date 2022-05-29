@@ -1,4 +1,5 @@
-from sqlalchemy import String, Column, Integer, DateTime
+from sqlalchemy import Column, DateTime, Integer, String
+
 from src.database import RunsBase
 
 
@@ -8,7 +9,7 @@ def RunsFactory(name: str):
     class Runs(RunsBase):
         """Tabela relacionada a Motorists"""
 
-        __tablename__ = f"RUNS_{name}"
+        __tablename__ = f'RUNS_{name}'
         id = Column(Integer, primary_key=True)
         date_time = Column(DateTime, unique=True)
         valor = Column(Integer, nullable=False)

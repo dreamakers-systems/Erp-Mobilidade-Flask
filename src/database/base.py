@@ -1,4 +1,4 @@
-""" Setting declative base"""
+"""Setting declative base"""
 
 from sqlalchemy.ext.declarative import declarative_base
 

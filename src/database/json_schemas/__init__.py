@@ -1,3 +1,3 @@
-""" Dander Init """
+"""Dander Init"""
 
 from .motorist import MotoristJsonSchema

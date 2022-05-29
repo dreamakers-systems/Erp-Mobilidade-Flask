@@ -1,6 +1,6 @@
 # pylint: disable = consider-using-f-string
-from typing import List
 from datetime import date, datetime
+from typing import List
 
 from sqlalchemy import Table
 
@@ -34,10 +34,10 @@ class RunsQuerys:
             try:
                 for item in data:
                     db_connection.session.execute(
-                        "INSERT OR IGNORE INTO {}"
-                        "(date_time, valor, operation)"
+                        'INSERT OR IGNORE INTO {}'
+                        '(date_time, valor, operation)'
                         "VALUES ('{}','{}','{}')".format(
-                            f"RUNS_{name}", item[0], item[1], item[2]
+                            f'RUNS_{name}', item[0], item[1], item[2]
                         )
                     )
                 db_connection.session.commit()
@@ -52,7 +52,7 @@ class RunsQuerys:
         """someting"""
         with DBConnectionHendler() as db_connection:
             try:
-                data_1 =  datetime(2021, 1, 12)
+                data_1 = datetime(2021, 1, 12)
                 query = db_connection.session
                 print(query)
             except:
@@ -60,4 +60,3 @@ class RunsQuerys:
                 raise
             finally:
                 db_connection.session.close()
-

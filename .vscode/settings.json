@@ -6,4 +6,12 @@
         "**/__pycache__": true,
         "**/*.pytest_cache": true
     },
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "a",
+            "database": "${workspaceFolder:Erp-Mobilidade-Flask}/test.db"
+        }
+    ],
 }
