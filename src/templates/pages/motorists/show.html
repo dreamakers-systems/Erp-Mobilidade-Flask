@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'layouts/dashboard.html' %}
 
 {% macro show_motorists() %}
 <div class="col">
@@ -53,5 +53,5 @@
 {% endmacro %}
 
 {% block content %}
-{{ wrapper_content(show_motorists()) }}
+{{ (show_motorists()) }}
 {% endblock %}

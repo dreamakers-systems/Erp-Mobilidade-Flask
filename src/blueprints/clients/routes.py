@@ -1,6 +1,6 @@
+# pylint: disable=no-value-for-parameter
 """Clientes"""
 
-from datetime import datetime
 
 from flask import Blueprint, redirect, render_template, request, url_for
 
@@ -37,8 +37,9 @@ def edit(id_cliente):
     )
 
 
-@clients_app.route('/deletar/<int:id_cliente>', methods=['GET', 'POST'])
-def delete(id_cliente):
+@clients_app.route('/delete/<int:id_cliente>', methods=['GET', 'POST'])
+def delete(id_cliente:int):
     """Deleta um Cliente"""
+    print(id_cliente)
     ClientQuerys.delete(id_cliente)
     return redirect(url_for('clients_app.show'))

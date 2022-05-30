@@ -1,0 +1,50 @@
+
+{% from "components/cards.html" import card_primary %}
+
+{% macro second_body() %}
+<div class="row">
+    <div class="col">
+    <div class="chart-responsive">
+        <canvas id="pieChart" height="200"></canvas>
+    </div>
+    <!-- ./chart-responsive -->
+    </div>
+</div>
+{% endmacro %}
+
+{% macro second_footer() %}
+<ul class="nav nav-pills flex-column">
+    <li class="nav-item">
+    <a href="#" class="nav-link">
+        Cancelamentos
+        <span class="float-right text-danger">
+        <i class="fas fa-arrow-down text-sm"></i>
+        12%</span>
+    </a>
+    </li>
+    <li class="nav-item">
+    <a href="#" class="nav-link">
+        Corridas
+        <span class="float-right text-success">
+        <i class="fas fa-arrow-up text-sm"></i> 4%
+        </span>
+    </a>
+    </li>
+    <li class="nav-item">
+    <a href="#" class="nav-link">
+        Agendamentos
+        <span class="float-right text-warning">
+        <i class="fas fa-arrow-left text-sm"></i> 0%
+        </span>
+    </a>
+    </li>
+</ul>
+{% endmacro %}
+
+{% macro graph_boll() %}
+{{ card_primary(
+    card_body=second_body(),
+    card_footer=second_footer(),
+    _class="text-center",
+    ) }}
+{% endmacro %}

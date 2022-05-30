@@ -1,4 +1,4 @@
-{% macro scripts() %}
+
 <!-- jQuery -->
 <script src="{{ url_for('static', filename='plugins/jquery/jquery.min.js')}}"></script>
 <script src="{{ url_for('static', filename='plugins/moment/moment.min.js')}}"></script>
@@ -14,8 +14,6 @@
 <script src="{{ url_for('static', filename='plugins/uplot/uPlot.iife.min.js')}}"></script>
 <script src="{{ url_for('static', filename='dist/js/pages/dashboard2.js')}}"></script>
 <script src="{{ url_for('static', filename='plugins/chart.js/Chart.min.js')}}"></script>
-
-
 <script>
   $(function () {
     //Date picker
@@ -31,4 +29,3 @@
 
   })
 </script>
-{% endmacro %}

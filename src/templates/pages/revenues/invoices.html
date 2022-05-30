@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'layouts/dashboard.html' %}
 
 {% macro _form() %}
 <form method="post">
@@ -19,12 +19,17 @@
 {% endmacro %}
 
 
+
+
 {% macro _content() %}
 <div class="col">
-{{ card_primary(tittle="Fechamento", card_body=_form()) }}
+{{ card_primary(
+  title="Fechamento", 
+  card_body=_form()
+  ) }}
 </div>
 {% endmacro %}
 
 {% block content %}
-{{ wrapper_content(_content()) }}
+{{ (_content()) }}
 {% endblock %}

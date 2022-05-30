@@ -1,0 +1,67 @@
+
+{% from "components/cards.html" import card_primary %}
+
+{% macro body() %}
+<div class="row">
+    <div class="col">
+    <p class="text-center">
+        <strong>Sales: 1 Jan, 2014 - 30 Jul, 2014</strong>
+    </p>
+
+    <div class="chart">
+        <!-- Sales Chart Canvas -->
+        <canvas id="salesChart" height="180" style="height: 180px;"></canvas>
+    </div>
+    <div 
+        id="dataProps" 
+        segunda=10
+        terca=25
+        quarta=30
+        quinta=24
+        sexta=50
+        sabado=20
+        domingo=30>
+    </div>
+    <!-- /.chart-responsive -->
+    </div>
+</div>
+{% endmacro %}    
+
+{% macro footer() %}
+<div class="row">
+  <div class="col-sm-4 col-4">
+    <div class="description-block">
+      <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> 17%</span>
+      <h5 class="description-header">R$35,210.43</h5>
+      <span class="description-text">Faturamento</span>
+    </div>
+    <!-- /.description-block -->
+  </div>
+  <!-- /.col -->
+  <div class="col-sm-4 col-4">
+    <div class="description-block">
+      <span class="description-percentage text-warning"><i class="fas fa-caret-left"></i> 0%</span>
+      <h5 class="description-header">R$10,390.90</h5>
+      <span class="description-text">Saidas</span>
+    </div>
+    <!-- /.description-block -->
+  </div>
+  <!-- /.col -->
+  <div class="col-sm-4 col-4">
+    <div class="description-block">
+      <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> 20%</span>
+      <h5 class="description-header">R$24,813.53</h5>
+      <span class="description-text">Total em Caixa</span>
+    </div>
+    <!-- /.description-block -->
+  </div>
+</div>
+<!-- /.row -->
+{% endmacro %}
+{% macro graph_runs() %}
+{{ card_primary(
+    card_body=body(),
+    _class="text-center",
+    card_footer=footer()
+    ) }}
+{% endmacro %}

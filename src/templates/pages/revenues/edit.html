@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'layouts/dashboard.html' %}
 
 {% macro  edit() %}
 <div class="col">
@@ -30,5 +30,5 @@
 {% endmacro %}
 
 {% block content %}
-{{ wrapper_content(edit()) }}
+{{ (edit()) }}
 {% endblock %}

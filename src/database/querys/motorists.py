@@ -4,7 +4,7 @@
 
 from typing import List
 
-from src.database.db_connection import DBConnectionHendler
+from src.database.db_connection import DBConnectionHendler, db_connector
 from src.database.models import Motorists
 
 
@@ -12,32 +12,21 @@ class MotoristsQuerys:
     """A Consult if name alredy exits"""
 
     @classmethod
-    def show(cls) -> List:
+    @db_connector
+    def show(cls, connection) -> List:
         """Retorna todos os motoristas na base de dados"""
-        with DBConnectionHendler() as db_connection:
-            try:
-                return db_connection.session.query(Motorists).all()
-            except:
-                db_connection.session.rollback()
-                raise
-            finally:
-                db_connection.session.close()
+        return connection.session.query(Motorists).all()
+
 
     @classmethod
-    def check_name(cls, name: str):
-        """someting"""
-        with DBConnectionHendler() as db_connection:
-            try:
-                return (
-                    db_connection.session.query(Motorists)
-                    .filter_by(name=name)
-                    .first()
-                )
-            except:
-                db_connection.session.rollback()
-                raise
-            finally:
-                db_connection.session.close()
+    @db_connector
+    def check_name(cls, connection, name: str):
+        return (
+            connection.session.query(Motorists)
+            .filter_by(name=name)
+            .first()
+        )
+
 
     @classmethod
     def create_motorist(cls, name, data_json):
@@ -76,22 +65,17 @@ class MotoristsQuerys:
                 db_connection.session.close()
 
     @classmethod
-    def delete_motorist(cls, motorist_id):
-        """someting"""
-        with DBConnectionHendler() as db_connection:
-            try:
-                motorist = (
-                    db_connection.session.query(Motorists)
-                    .filter_by(id=motorist_id)
-                    .first()
-                )
-                db_connection.session.delete(motorist)
-                db_connection.session.commit()
-            except:
-                db_connection.session.rollback()
-                raise
-            finally:
-                db_connection.session.close()
+    @db_connector
+    def delete(cls, connection, motorist_id) -> None:
+        """Delete a motorist by id"""
+        motorist = (
+            connection.session.query(Motorists)
+            .filter_by(id=motorist_id)
+            .first()
+        )
+        connection.session.delete(motorist)
+        connection.session.commit()
+
 
     @classmethod
     def create_motorists_runs(cls, name):

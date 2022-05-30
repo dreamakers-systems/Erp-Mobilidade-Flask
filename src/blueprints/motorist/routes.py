@@ -1,10 +1,10 @@
+# pylint: disable=no-value-for-parameter
 """Motorist Routes"""
 
 
-from flask import (Blueprint, jsonify, redirect, render_template, request,
+from flask import (Blueprint, redirect, render_template, request,
                    url_for)
 
-from src.database.json_schemas import MotoristJsonSchema
 from src.database.querys import MotoristsQuerys, RunsQuerys
 
 from .src.uploads import MotoristsDataParsing
@@ -15,7 +15,7 @@ motorist_app = Blueprint('motorist_app', __name__, url_prefix='/motorists/')
 @motorist_app.route('/', methods=['GET'])
 def get_motorits():
     """Get all motorists in database"""
-    motorists = MotoristsQuerys.check_motorists()
+    motorists = MotoristsQuerys.show()
     return render_template('pages/motorists/show.html', motorists=motorists)
 
 
@@ -31,21 +31,11 @@ def create():
 
     return render_template('pages/motorists/create.html')
 
-
-@motorist_app.route('/delete', methods=['POST'])
-def delete_motorist():
+@motorist_app.route('/delete/<motorist_id>:int', methods=['POST'])
+def delete(motorist_id: int):
     """Delete a motorist"""
-    motorist_id = request.json.get('id')
-    print((motorist_id))
-    MotoristsQuerys.delete_motorist(motorist_id)
-    schema = MotoristJsonSchema()
-    motorists = {
-        'motorists': [
-            schema.dump(i) for i in MotoristsQuerys.check_motorists()
-        ]
-    }
-    return jsonify(motorists)
-
+    print(MotoristsQuerys.delete(motorist_id))
+    return redirect(url_for('motorist_app.show'))
 
 @motorist_app.route('/uploads', methods=['POST', 'GET'])
 def uploads():

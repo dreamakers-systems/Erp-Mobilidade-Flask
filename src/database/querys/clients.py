@@ -1,6 +1,7 @@
 from typing import List
 
 from src.database import DBConnectionHendler
+from src.database.db_connection import db_connector
 from src.database.models import Client
 
 
@@ -54,20 +55,13 @@ class ClientQuerys:
     """ Create a new user """
 
     @classmethod
-    def delete(cls, client_id):
-        """someting"""
-        with DBConnectionHendler() as db_connection:
-            try:
-                client = (
-                    db_connection.session.query(Client)
-                    .filter_by(id=client_id)
-                    .first()
-                )
-                db_connection.session.delete(client)
-                db_connection.session.commit()
+    @db_connector
+    def delete(cls, connection, client_id: int) -> None:
+        client = (
+            connection.session.query(Client)
+            .filter_by(id=client_id)
+            .first()
+        )
+        connection.session.delete(client)
+        connection.session.commit()
 
-            except:
-                db_connection.session.rollback()
-                raise
-            finally:
-                db_connection.session.close()

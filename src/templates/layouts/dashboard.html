@@ -1,0 +1,52 @@
+<!-- 
+  Aqui é renderizado o layolt principal da plataforma
+  Para separar componentes está sendo urilizado a função
+  macro do jinja. Que permite separa uma pequena parte de 
+  codigo em um componente reutilizavel. Todos om componentes 
+  do layolt principal estão na pasta ./macros/base/
+-->
+
+
+<!-- Importando componetes -->
+{% from "components/daterange.html" import date_range %}
+{% from "components/select.html" import select %}
+{% from "components/cards.html" import card_primary %}
+{% from "components/buttons.html" import buttons %}
+{% block macros %}{% endblock %}
+
+
+<!-- Instanciando um documento base para receber os componentes -->
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<!-- HEAD -->
+{% include 'layouts/base/head.html' %}
+
+<!-- BODY -->
+<body class="hold-transition sidebar-mini dark-mode">
+  <div class="wrapper">
+    <!-- Navbar -->
+    {% include 'layouts/base/navbar.html' %}
+    {% include 'layouts/base/main_sidebar.html' %}
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <section class="content-header">
+        <div class="container-fluid">
+        </div>
+      </section>
+    
+      <section class="content">
+        <div class="container-fluid">
+        {% block content %}{% endblock %}
+        </div>
+      </section>
+    </div>
+    <!-- Control Sidebar -->
+    {% include 'layouts/base/control_sidebar.html' %}
+    <!-- Main Footer -->
+    {% include 'layouts/base/footer.html' %}
+  </div>
+<!-- REQUIRED SCRIPTS -->
+{% include 'layouts/base/scripts.html' %}
+</body>
+</html>

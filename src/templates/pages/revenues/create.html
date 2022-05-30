@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'layouts/dashboard.html' %}
 {% macro  create() %}
 <div class="col">
   <div class="card card-primary">
@@ -38,5 +38,5 @@
 {% endmacro %}
 
 {% block content %}
-{{ wrapper_content(create()) }}
+{{ (create()) }}
 {% endblock %}

@@ -1,3 +1,4 @@
+# pylint: disable=no-value-for-parameter
 """Rotas de Dashboard"""
 
 from flask import Blueprint, render_template

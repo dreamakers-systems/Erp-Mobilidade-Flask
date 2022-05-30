@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'layouts/dashboard.html' %}
 
 {% macro upload() %}
 <div class="col">
@@ -35,5 +35,5 @@
 {% endmacro %}
 
 {% block content %}
-{{ wrapper_content(upload()) }}
+{{ (upload()) }}
 {% endblock %}

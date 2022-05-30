@@ -66,7 +66,7 @@ def invoices():
         print(query)
         return redirect(url_for('revenues_app.invoices'))
     motorists = list(
-        map(lambda motorist: motorist.name, MotoristsQuerys.check_motorists())
+        map(lambda motorist: motorist.name, MotoristsQuerys.show())
     )
     motorists.insert(0, 'TODOS')
     return render_template('pages/revenues/invoices.html', motorists=motorists)
