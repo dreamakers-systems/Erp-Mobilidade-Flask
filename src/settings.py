@@ -6,13 +6,12 @@ cada ambiente. Para setar esse ambiente va para
 """
 
 import os
-from os.path import abspath, basename, dirname, join
+from os.path import join
 
 from dotenv import load_dotenv
 
-basedir = abspath(dirname(__name__))
-dotenv_path = join(basedir, '.env')
-load_dotenv(dotenv_path)
+user_dir= join('/home', os.getlogin(),'vars_apps','.env_erp_mobilidade')
+load_dotenv(user_dir)
 
 
 class Config:
@@ -24,16 +23,6 @@ class Config:
         'txt',
     }
     DATABASE_CONNECTION = os.environ.get('DATABASE_CONNECTION')
-
-
-class DevelopmentConfig(Config):
-    """Ambiente de desenvolvimento"""
-
-    DEBUG = False
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(
-        basedir, 'dev-data.db'
-    )
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
 class TestingConfig(Config):
