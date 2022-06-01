@@ -23,6 +23,8 @@ class Config:
         'txt',
     }
     DATABASE_CONNECTION = os.environ.get('DATABASE_CONNECTION')
+    print(DATABASE_CONNECTION)
+
 
 
 class TestingConfig(Config):
