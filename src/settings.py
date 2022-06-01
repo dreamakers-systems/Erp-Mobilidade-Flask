@@ -15,6 +15,8 @@ from dotenv import load_dotenv
 class Config:
     """Configurações globais para todo o projeto"""
     user_dir= join(os.path.expanduser('~'),'vars_apps','.env_erp_mobilidade')
+    print(user_dir)
+    
     load_dotenv(user_dir)
 
     SECRET_KEY = os.environ.get('SECRET_KEY')
