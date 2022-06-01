@@ -10,7 +10,7 @@ from os.path import join
 
 from dotenv import load_dotenv
 
-user_dir= join('/home', os.getlogin(),'vars_apps','.env_erp_mobilidade')
+user_dir= join(os.path.expanduser('~'),'vars_apps','.env_erp_mobilidade')
 load_dotenv(user_dir)
 
 
