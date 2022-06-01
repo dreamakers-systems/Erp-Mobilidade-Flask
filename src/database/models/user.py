@@ -8,8 +8,8 @@ from src.database import Base
 
 
 class User(UserMixin, Base):
-    __match_args__ = ('email', 'name')
     """User account model."""
+    __match_args__ = ('email', 'name')
 
     __tablename__ = 'flasklogin-users'
     id = Column(Integer, primary_key=True)
