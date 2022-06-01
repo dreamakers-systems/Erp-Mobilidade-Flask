@@ -5,18 +5,16 @@ esteremos utilizando objetos com diferentes propriedades para
 cada ambiente. Para setar esse ambiente va para
 """
 
+import getpass
 import os
 from os.path import join
-
 from dotenv import load_dotenv
 
 
 
 class Config:
     """Configurações globais para todo o projeto"""
-    user_dir= join(os.path.expanduser('~'),'vars_apps','.env_erp_mobilidade')
-    print(user_dir)
-    
+    user_dir= join('/home', getpass.getuser(),'vars_apps','.env_erp_mobilidade')
     load_dotenv(user_dir)
 
     SECRET_KEY = os.environ.get('SECRET_KEY')
@@ -25,7 +23,6 @@ class Config:
         'txt',
     }
     DATABASE_CONNECTION = os.environ.get('DATABASE_CONNECTION')
-    print(DATABASE_CONNECTION)
 
 
 
