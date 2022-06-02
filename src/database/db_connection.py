@@ -38,8 +38,7 @@ def db_connector(func):
     def with_connection_(cls, *args):
         with DBConnectionHendler() as connection:
             try:
-                query = func(cls, connection, *args)
-                return query
+                return func(cls, connection, *args)
             except:
                 connection.session.rollback()
                 raise

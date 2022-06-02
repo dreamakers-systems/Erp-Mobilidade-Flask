@@ -2,7 +2,7 @@
 
 from typing import List, Type
 
-from src.database.db_connection import DBConnectionHendler, db_connector
+from src.database.db_connection import db_connector
 from src.database.models import User
 
 

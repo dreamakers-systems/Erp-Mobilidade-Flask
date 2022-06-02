@@ -128,3 +128,4 @@ dmypy.json
 .pyre/
 test.db
 .vscode/settings.json
+.vscode/settings.json

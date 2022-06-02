@@ -12,6 +12,12 @@
             "driver": "SQLite",
             "name": "a",
             "database": "${workspaceFolder:Erp-Mobilidade-Flask}/test.db"
+        },
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "database": "/home/otupa/baseg4.db",
+            "name": "ds"
         }
     ],
 }
