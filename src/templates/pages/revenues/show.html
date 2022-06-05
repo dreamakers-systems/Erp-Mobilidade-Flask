@@ -1,8 +1,8 @@
 {% extends 'layouts/dashboard.html' %}
 
 {% macro _body() %}
-<div class="col">
-<table class="table table-bordered table table-hover table-head-fixed table-striped">
+<div class="table-responsive">
+<table class="table table-hover text-nowrap">
   <thead>
     <tr>
       <th>ID</th>
@@ -37,7 +37,7 @@
 
     {{ card_primary(
 
-        title="Regras de Porcentagem", 
+        title="Porcentagens", 
 
         card_tools=buttons(
             link="settings/new",
@@ -46,7 +46,6 @@
             button_text="Novo"),
 
         card_body=_body(),
-        _class="text-center"
         )}}
 </div>
 {% endmacro %}

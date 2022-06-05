@@ -4,13 +4,13 @@
 <form method="post">
   <div class="form-group">
     <div class="row">
-      <div class="col">
+      <div class="col-lg p-1">
         {{ date_range(name="daterange") }}
       </div>
-      <div class="col-3">
+      <div class="col-lg-3 p-1">
         {{ select(motorists, name="option") }}
       </div>
-      <div class="col-1">
+      <div class="col-lg-1 p-1">
         <button type="submit" class="btn btn-primary float-right">Pesquisar</button>
       </div>
     </div>
