@@ -1,34 +1,44 @@
 {% extends 'layouts/dashboard.html' %}
-
-{% macro  edit() %}
-<div class="col">
-  <div class="card card-primary">
-    <div class="card-header">
-      <h3 class="card-title">General Elements</h3>
-    </div>
-    <form>
-      <div class="card-body">
-        <div class="form-group">
-          <label>Text</label>
-          <input type="text" class="form-control" placeholder="{{porcent.porcent_one}}">
-        </div>
-        <div class="form-group">
-          <label>Text</label>
-          <input type="text" class="form-control" placeholder="{{porcent.porcent_two}}">
-        </div>
-        <div class="form-group">
-          <label>Text</label>
-          <input type="text" class="form-control" placeholder="{{porcent.porcent_tree}}">
-        </div>
-      </div>
-      <div class="card-footer">
-          <button type="submit" class="btn btn-primary float-right">Cadastrar</button>
-      </div>
-    </form>
-  </div>
+{% macro  _body() %}
+<div class="form-group">
+  <label>Name</label>
+  <input type="text" class="form-control" id="" placeholder="Enter ..." name="group_name">
 </div>  
-{% endmacro %}
 
+<div class="row">
+  <!-- text input -->
+  <div class="form-group  col-lg" >
+    <label>Corridas até R$13,00</label>
+    <input type="text" class="form-control" id="" placeholder="Enter ..." name="porcent_one">
+  </div>
+  <!-- text input -->
+  <div class="form-group  col-lg">
+    <label>Corridas até R$22,00</label>
+    <input type="text" class="form-control" id="" placeholder="Enter ..." name="porcent_two">
+  </div>
+  <!-- text input -->
+  <div class="form-group  col-lg">
+    <label>Corridas acima de R$22,00</label>
+    <input type="text" class="form-control" id="" placeholder="Enter ..." name="porcent_tree">
+  </div>
+</div>
+{% endmacro %}
+{% macro mostrar() %}
+<div class="col">
+
+    {{card_primary(
+        _class="card-primary",
+        title="Grupos", 
+        is_form=True,
+        card_footer=buttons(
+            button_type="submit",
+            _class="btn-default float-right",
+            button_text="Novo"),
+
+        card_body=_body()
+        )}}
+</div>
+{% endmacro %}
 {% block content %}
-{{ (edit()) }}
+{{ (mostrar()) }}
 {% endblock %}

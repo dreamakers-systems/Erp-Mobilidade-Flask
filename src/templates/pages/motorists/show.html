@@ -17,10 +17,10 @@
         <tr>
           <td>{{motorist.id}}</td>
           <td>{{motorist.name}}</td>
-          <td>{{motorist.status}}</td>
-          <td>{{motorist.comission}}</td>
+          <td>Em dia</td>
+          <td>{{motorist.data_json['comission']}}</td>
           <td>
-            <div class="input-group-prepend float-right" >
+            <div class="input-group-prepend align-center" >
               <button type="button" class="btn btn-default dropdown-toggle " data-toggle="dropdown">
                 Action
               </button>
@@ -45,7 +45,7 @@
         title="Motoristas", 
 
         card_tools=buttons(
-            link="novo",
+            link="create",
             button_type="button",
             _class="btn-default",
             button_text="Novo"),

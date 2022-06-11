@@ -8,7 +8,7 @@ class RevenuesPorcents(Base):
 
     __tablename__ = 'porcents'
     id = Column(Integer, primary_key=True)
-    name = Column(String)
-    porcent_one = Column(Integer)
-    porcent_two = Column(Integer)
-    porcent_tree = Column(Integer)
+    name = Column(String, nullable=False)
+    porcent_one = Column(Integer, nullable=False)
+    porcent_two = Column(Integer, nullable=False)
+    porcent_tree = Column(Integer, nullable=False)

@@ -1,7 +1,7 @@
 {% extends 'layouts/dashboard.html' %}
 
 {% macro _body() %}
-<div class="table-responsive">
+<div class="table-responsive text-center">
 <table class="table table-hover text-nowrap">
   <thead>
     <tr>
@@ -16,9 +16,9 @@
       <td>{{porcent.id}}</td>
       <td>{{porcent.name}}</td>
       <td>
-        <div class="input-group-prepend float-right" >
+        <div class="align-self-center" >
           <button type="button" class="btn btn-default dropdown-toggle " data-toggle="dropdown">
-            Action
+            Opções
           </button>
           <div class="dropdown-menu">
             <a class="dropdown-item" href="edit/{{ porcent.id }}">Editar</a>
@@ -35,21 +35,20 @@
 {% macro mostrar() %}
 <div class="col">
 
-    {{ card_primary(
-
-        title="Porcentagens", 
+    {{card_primary(
+        _class="",
+        title="Grupos", 
 
         card_tools=buttons(
-            link="settings/new",
+            link="create",
             button_type="button",
             _class="btn-default",
             button_text="Novo"),
 
-        card_body=_body(),
+        card_body=_body()
         )}}
 </div>
 {% endmacro %}
-
 {% block content %}
-{{ mostrar() }}
+{{ (mostrar()) }}
 {% endblock %}

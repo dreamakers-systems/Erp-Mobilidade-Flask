@@ -6,8 +6,9 @@ from sqlalchemy.orm import sessionmaker
 from src.settings import Config
 
 
-class DBConnectionHendler():
+class DBConnectionHendler:
     """Sqlalchemy database connection"""
+
     def __init__(self) -> None:
         self.__connection_string = Config.DATABASE_CONNECTION
         self.session = None

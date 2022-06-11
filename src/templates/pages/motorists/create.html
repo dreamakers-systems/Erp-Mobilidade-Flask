@@ -2,16 +2,16 @@
 
 {% macro _body() %}
 <div class="row">
-  <div class="col-4">
+  <div class="col-lg-4 p-1">
   <label for="exampleInputEmail1">Nome do Motorista</label>
   
   <input type="text" class="form-control" placeholder="Nome Completo">
   </div>
-  <div class="col-4">
+  <div class="col-lg-4 p-1">
     <label for="exampleInputEmail1">Nome do Motorista</label>
     <input type="text" class="form-control" placeholder="Nome da Base">
   </div>
-  <div class="col-4">
+  <div class="col-lg-4 p-1">
     <label for="exampleInputEmail1">Regra de faturamento.</label>
     {{ select(['mariano'], name="option") }}
   </div>

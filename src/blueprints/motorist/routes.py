@@ -2,8 +2,7 @@
 """Motorist Routes"""
 
 
-from flask import (Blueprint, redirect, render_template, request,
-                   url_for)
+from flask import Blueprint, redirect, render_template, request, url_for
 
 from src.database.querys import MotoristsQuerys, RunsQuerys
 
@@ -24,18 +23,20 @@ def create():
     """Create a new motorist"""
     if request.method == 'POST':
         name = request.form.get('name')
-        data_json = {'comission': 'defout'}
+        data_json = {'comission': 'default'}
         MotoristsQuerys.create_motorist(name, data_json)
         RunsQuerys.create_table(name)
         return redirect(url_for('motorist_app.create'))
 
     return render_template('pages/motorists/create.html')
 
+
 @motorist_app.route('/delete/<motorist_id>:int', methods=['POST'])
 def delete(motorist_id: int):
     """Delete a motorist"""
     print(MotoristsQuerys.delete(motorist_id))
     return redirect(url_for('motorist_app.show'))
+
 
 @motorist_app.route('/uploads', methods=['POST', 'GET'])
 def uploads():
@@ -48,9 +49,30 @@ def uploads():
     return render_template('pages/motorists/uploads.html')
 
 
-@motorist_app.route('/settings', methods=['POST', 'GET'])
-def settings():
-    """upload datas"""
+@motorist_app.route('/edit/<motorist_id>', methods=['POST', 'GET'])
+def edit(motorist_id):
+    """Create a new motorist"""
     if request.method == 'POST':
-        return redirect(url_for('motorist_app.settings'))
-    return render_template('pages/motorists/settings.html')
+        name = request.form.get('name')
+        data_json = {'comission': 'default'}
+        MotoristsQuerys.create_motorist(name, data_json)
+        RunsQuerys.create_table(name)
+        return redirect(url_for('motorist_app.create'))
+
+    motorist = MotoristsQuerys.get_id(motorist_id)
+
+    return render_template('pages/motorists/edit.html', motorist=motorist)
+
+@motorist_app.route('/revenues/show/<motorist_id>', methods=['POST', 'GET'])
+def revenues(motorist_id):
+    """Create a new motorist"""
+    if request.method == 'POST':
+        name = request.form.get('name')
+        data_json = {'comission': 'default'}
+        MotoristsQuerys.create_motorist(name, data_json)
+        RunsQuerys.create_table(name)
+        return redirect(url_for('motorist_app.create'))
+
+    motorist = MotoristsQuerys.get_id(motorist_id)
+
+    return render_template('pages/motorists/edit.html', motorist=motorist)

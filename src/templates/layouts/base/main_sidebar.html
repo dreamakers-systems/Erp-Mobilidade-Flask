@@ -9,12 +9,12 @@
   <!-- Sidebar -->
   <div class="sidebar">
     <!-- Sidebar user panel (optional) -->
-    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-      <div class="image">
-        <img src="{{ url_for('static', filename='/images/logo.png')}}" class="img-circle elevation-2" alt="User Image">
+    <div class="user-panel m-2 d-flex p-0 pl-1">
+      <div class="">
+        <img src="{{ url_for('static', filename='/images/logog4.png')}}" class="img-circle elevation-2" alt="User Image">
       </div>
-      <div class="info">
-        <a href="/" class="d-block h3">MOBILIDADE</a>
+      <div class="info ml- p-0 pl-4">
+        <a href="/" class="d-block h3">G4 Mobile</a>
       </div>
     </div>
 
@@ -22,7 +22,7 @@
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <li class="nav-item">
-          <a href="/" class="nav-link active">
+          <a href="/" class="nav-link" id="home">
             <i class="nav-icon fas fa-chart-pie"></i>
             <p>
               Home
@@ -38,7 +38,7 @@
           </a>
         </li> -->
         <li class="nav-item">
-          <a href="/revenues/invoices" class="nav-link">
+          <a href="/revenues/invoices" class="nav-link" id="revenues-invoices">
             <i class="nav-icon fas fa-th"></i>
             <p>
               Fechamento
@@ -55,19 +55,19 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="/motorists" class="nav-link">
+              <a href="/motorists" class="nav-link" id="motorists-">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Motoristas</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="/revenues/settings" class="nav-link">
+              <a href="/revenues/settings" class="nav-link" id="revenues-settings">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Opções</p>
+                <p>Grupos</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="/motorists/uploads" class="nav-link">
+              <a href="/motorists/uploads" class="nav-link" id="motorists-uploads">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Uploads</p>
               </a>

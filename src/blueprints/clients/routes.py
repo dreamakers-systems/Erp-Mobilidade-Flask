@@ -38,7 +38,7 @@ def edit(id_cliente):
 
 
 @clients_app.route('/delete/<int:id_cliente>', methods=['GET', 'POST'])
-def delete(id_cliente:int):
+def delete(id_cliente: int):
     """Deleta um Cliente"""
     print(id_cliente)
     ClientQuerys.delete(id_cliente)

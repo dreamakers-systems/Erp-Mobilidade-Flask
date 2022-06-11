@@ -1,0 +1,32 @@
+{% extends 'layouts/dashboard.html' %} 
+
+
+
+{% macro _body() %}
+<h2>:( Perdão esta página ainda esta em desenvolvimento!</h2>
+{% endmacro %}
+
+
+{% macro mostrar() %}
+<div class="col">
+
+    {{card_primary(
+
+        title="Exemplo", 
+
+        card_body=_body(),
+
+        card_footer=buttons(
+            button_type="button",
+            link="/",
+            _class="btn-default float-right",
+            button_text="Voltar"),
+        is_form=True,
+        form_action=""
+        )}}
+</div>
+{% endmacro %}
+
+{% block content %}
+{{ mostrar() }}
+{% endblock %}

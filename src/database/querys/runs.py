@@ -1,62 +1,63 @@
 # pylint: disable = consider-using-f-string
-from datetime import date, datetime
+from datetime import datetime
+from time import strftime, strptime
 from typing import List
 
-from sqlalchemy import Table
-
 from src.database import RunsBase
-from src.database.db_connection import DBConnectionHendler
-from src.database.models import RunsFactory
+from src.database.db_connection import db_connector
+from src.database.models import runs_factory
 
 
 class RunsQuerys:
     """A Consult if name alredy exits"""
 
     @classmethod
-    def create_table(cls, name):
+    @db_connector
+    def create_table(cls, connection, name):
         """someting"""
-        with DBConnectionHendler() as db_connection:
-            try:
 
-                RunsFactory(name)
-                engine = db_connection.get_engine()
-                RunsBase.metadata.create_all(engine)
-            except:
-                db_connection.session.rollback()
-                ...
-            finally:
-                db_connection.session.close()
+        runs_factory(name)
+        engine = connection.get_engine()
+        RunsBase.metadata.create_all(engine)
 
     @classmethod
-    def insert(cls, name, data):
+    @db_connector
+    def insert(cls, connection, name, data):
         """someting"""
-        with DBConnectionHendler() as db_connection:
-            try:
-                for item in data:
-                    db_connection.session.execute(
-                        'INSERT OR IGNORE INTO {}'
-                        '(date_time, valor, operation)'
-                        "VALUES ('{}','{}','{}')".format(
-                            f'RUNS_{name}', item[0], item[1], item[2]
-                        )
-                    )
-                db_connection.session.commit()
-            except:
-                db_connection.session.rollback()
-                raise
-            finally:
-                db_connection.session.close()
+
+        for item in data:
+            connection.session.execute(
+                'INSERT OR IGNORE INTO {}'
+                '(date_time, valor, operation)'
+                "VALUES ('{}','{}','{}')".format(
+                    f'RUNS_{name}', item[0], item[1], item[2]
+                )
+            )
+        connection.session.commit()
 
     @classmethod
-    def search_daterange(cls, name: str, date_range: List):
-        """someting"""
-        with DBConnectionHendler() as db_connection:
-            try:
-                data_1 = datetime(2021, 1, 12)
-                query = db_connection.session
-                print(query)
-            except:
-                db_connection.session.rollback()
-                raise
-            finally:
-                db_connection.session.close()
+    @db_connector
+    def search_daterange(cls, connection, name: str, date_range: List) -> List:
+        """ex:
+        '2021-01-15 07:42:00', '2021-01-20 16:20:00'"""
+
+        mot = runs_factory(name)
+        runs = (
+            connection.session.query(mot)
+            .filter(mot.date_time.between(*date_range))
+            .all()
+        )
+        _runs = list(
+            map(lambda run: (
+                run.date_time.strftime('%d/%m/%Y'),
+                run.valor,
+                run.operation), runs))
+        return _runs
+
+        # "SELECT DATE_FORMAT(date_time, '%d-%m-%Y %H:%i'), valor, operator\
+        # FROM base_g4.{}\
+        # WHERE date_time\
+        # BETWEEN '{}' AND '{}';".format(name, date_range[0], date_range[1]))
+
+        # list_ = [[tables[0], tables[1], tables[2]]
+        #     for tables in connect.cursor.fetchall()]

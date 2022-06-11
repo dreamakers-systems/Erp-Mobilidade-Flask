@@ -9,59 +9,30 @@ class ClientQuerys:
     """Criando um novo cliente"""
 
     @classmethod
-    def new(cls, nome):
+    @db_connector
+    def new(cls, connection, name):
         """someting"""
-        with DBConnectionHendler() as db_connection:
-            try:
-                client = Client(name=nome.upper())
-
-                db_connection.session.add(client)
-                db_connection.session.commit()
-            except:
-                db_connection.session.rollback()
-                raise
-            finally:
-                db_connection.session.close()
+        client = Client(name=name.upper())
+        connection.session.add(client)
+        connection.session.commit()
 
     @classmethod
-    def get_all(cls) -> List:
+    @db_connector
+    def get_all(cls, connection) -> List:
         """Retorna uma lista de todos os clients"""
-        with DBConnectionHendler() as db_connection:
-            try:
-                return db_connection.session.query(Client).all()
-            except:
-                db_connection.session.rollback()
-                raise
-            finally:
-                db_connection.session.close()
+        return connection.session.query(Client).all()
 
     @classmethod
-    def get_id(cls, client_id):
-        """someting"""
-        with DBConnectionHendler() as db_connection:
-            try:
-                return (
-                    db_connection.session.query(Client)
-                    .filter_by(id=client_id)
-                    .first()
-                )
-
-            except:
-                db_connection.session.rollback()
-                raise
-            finally:
-                db_connection.session.close()
-
-    """ Create a new user """
+    @db_connector
+    def get_id(cls, connection, client_id):
+        """Select by id"""
+        return connection.session.query(Client).filter_by(id=client_id).first()
 
     @classmethod
     @db_connector
     def delete(cls, connection, client_id: int) -> None:
         client = (
-            connection.session.query(Client)
-            .filter_by(id=client_id)
-            .first()
+            connection.session.query(Client).filter_by(id=client_id).first()
         )
         connection.session.delete(client)
         connection.session.commit()
-

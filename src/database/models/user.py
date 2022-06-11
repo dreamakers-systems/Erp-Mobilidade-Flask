@@ -9,6 +9,7 @@ from src.database import Base
 
 class User(UserMixin, Base):
     """User account model."""
+
     __match_args__ = ('email', 'name')
 
     __tablename__ = 'flasklogin-users'
