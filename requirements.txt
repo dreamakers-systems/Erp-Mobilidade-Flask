@@ -5,3 +5,4 @@ python-dotenv==0.20.0
 SQLAlchemy==1.4.29
 Werkzeug==2.0.0
 pandas
+pillow
