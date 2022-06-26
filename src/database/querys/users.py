@@ -1,6 +1,6 @@
 """User Querys"""
 
-from typing import List, Type
+from typing import List
 
 from src.database.db_connection import db_connector
 from src.database.models import User
