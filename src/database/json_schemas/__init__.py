@@ -1,3 +1,3 @@
 """Dander Init"""
 
-from .motorist import MotoristJsonSchema
+from .driver import MotoristJsonSchema

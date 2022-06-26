@@ -14,7 +14,7 @@ class RunsQuerys:
     @classmethod
     @db_connector
     def create_table(cls, connection, name):
-        """someting"""
+        """Create runs table."""
 
         runs_factory(name)
         engine = connection.get_engine()
@@ -23,7 +23,7 @@ class RunsQuerys:
     @classmethod
     @db_connector
     def insert(cls, connection, name, data):
-        """someting"""
+        """Insert runs in database."""
 
         for item in data:
             connection.session.execute(
@@ -38,8 +38,16 @@ class RunsQuerys:
     @classmethod
     @db_connector
     def search_daterange(cls, connection, name: str, date_range: List) -> List:
-        """ex:
-        '2021-01-15 07:42:00', '2021-01-20 16:20:00'"""
+        """Search all runs in a range:
+
+        name -- driver name
+        date_range -- is a list with two datetimes.
+
+        For exemple:
+                '2021-01-15 07:42:00', '2021-01-20 16:20:00'
+
+        Return a list with all runs
+        """
 
         mot = runs_factory(name)
         runs = (
@@ -47,17 +55,15 @@ class RunsQuerys:
             .filter(mot.date_time.between(*date_range))
             .all()
         )
+
         _runs = list(
-            map(lambda run: (
-                run.date_time.strftime('%d/%m/%Y'),
-                run.valor,
-                run.operation), runs))
+            map(
+                lambda run: (
+                    run.date_time.strftime('%d/%m/%Y'),
+                    run.valor,
+                    run.operation,
+                ),
+                runs,
+            )
+        )
         return _runs
-
-        # "SELECT DATE_FORMAT(date_time, '%d-%m-%Y %H:%i'), valor, operator\
-        # FROM base_g4.{}\
-        # WHERE date_time\
-        # BETWEEN '{}' AND '{}';".format(name, date_range[0], date_range[1]))
-
-        # list_ = [[tables[0], tables[1], tables[2]]
-        #     for tables in connect.cursor.fetchall()]

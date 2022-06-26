@@ -57,9 +57,9 @@ def init_app() -> Flask:
 
         app.register_blueprint(dashboard_app)
 
-        from .blueprints import motorist_app
+        from .blueprints import drivers_app
 
-        app.register_blueprint(motorist_app)
+        app.register_blueprint(drivers_app)
 
         from .blueprints import clients_app
 

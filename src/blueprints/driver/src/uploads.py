@@ -1,3 +1,4 @@
+# pylint: disable=no-value-for-parameter
 """Receave mmotorist runs"""
 
 import datetime
@@ -9,27 +10,23 @@ from src.database.querys import MotoristsQuerys, RunsQuerys
 
 
 class MotoristsDataParsing:
-    """Recebe uma requisição e constroi os
-    objetos dos motoristas e armazena em um dicionario
+    """Parse informations of files and create sql tables.
     """
 
     def __init__(self, request_files) -> None:
-        """sumary_line
+        """Receve files to parse
+        This files are a .txt files"""
 
-        Keyword arguments:
-        argument -- description
-        Return: return_description
-        """
         self.request_files = request_files
         self.set_motorists()
 
     def set_motorists(self):
-        """Set name for the motorist"""
-        for motorist in self.request_files:
-            data = ParsedMotoristData(motorist).get()
-            name = motorist.filename[:-4][29:].replace(' ', '_')
+        """Set name for the driver"""
+        for driver in self.request_files:
+            data = ParsedMotoristData(driver).get()
+            name = driver.filename[:-4][29:].replace(' ', '_')
             data_json = {'comission': 'defout'}
-            MotoristsQuerys.create_motorist(name, data_json)
+            MotoristsQuerys.new(name, data_json)
             RunsQuerys.create_table(name)
             RunsQuerys.insert(name, data)
 
@@ -53,8 +50,8 @@ class ParsedMotoristData:
         """Realiza o parsing da data"""
         date = re.findall(r'\d+/\d+/\d+', line)
         date = datetime.datetime.strptime(date[0], '%d/%m/%Y').strftime(
-            '%Y-%m-%d'
-        )
+            '%Y-%m-%d')
+
         if not date:
             date = self.data_frame[-1][0]
         hour = re.findall(r'\d+\:\d+', line)
@@ -78,11 +75,12 @@ class ParsedMotoristData:
 
     def get_operation(self, line: str) -> str:
         """Realiza o parsing do valor"""
-        if 'desconto no boleto' in line:
-            operation = '-'
-        else:
-            operation = '+'
-        return operation
+        match line:
+            case 'desconto no boleto':
+                return '-'
+            case _:
+                return '+'
+
 
     def filter_talk(self, talk, name, rule):
         """Percorre toda a conversa: talk

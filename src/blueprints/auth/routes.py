@@ -8,7 +8,6 @@ from flask_login import LoginManager, login_user, logout_user
 from src.database.models import User
 from src.database.querys import UserQuerys
 
-# Blueprint Configuration
 auth = Blueprint(
     'auth', __name__,
     template_folder='templates',
@@ -43,6 +42,7 @@ def public_endpoint(function):
 def load_user(user_id):
     """Manage users in database."""
     return UserQuerys.get_by_id(user_id)
+
 
 @auth.route('/login', methods=['GET', 'POST'])
 @public_endpoint

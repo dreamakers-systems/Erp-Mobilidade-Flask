@@ -4,7 +4,7 @@ from marshmallow import Schema
 
 
 class MotoristJsonSchema(Schema):
-    """Marshmellow schema to load motorist datas"""
+    """Marshmellow schema to load driver datas"""
 
     class Meta:
         """To serialize Sql Consult"""

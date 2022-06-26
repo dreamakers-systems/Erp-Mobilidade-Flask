@@ -11,7 +11,7 @@ class ClientQuerys:
     @classmethod
     @db_connector
     def new(cls, connection, name):
-        """someting"""
+        """Create a new client"""
         client = Client(name=name.upper())
         connection.session.add(client)
         connection.session.commit()
@@ -19,18 +19,19 @@ class ClientQuerys:
     @classmethod
     @db_connector
     def get_all(cls, connection) -> List:
-        """Retorna uma lista de todos os clients"""
+        """Return a a list with all motorists"""
         return connection.session.query(Client).all()
 
     @classmethod
     @db_connector
     def get_id(cls, connection, client_id):
-        """Select by id"""
+        """Select by id."""
         return connection.session.query(Client).filter_by(id=client_id).first()
 
     @classmethod
     @db_connector
     def delete(cls, connection, client_id: int) -> None:
+        """Delete a motorists with id."""
         client = (
             connection.session.query(Client).filter_by(id=client_id).first()
         )

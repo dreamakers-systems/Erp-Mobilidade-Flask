@@ -13,20 +13,20 @@
         </tr>
       </thead>
       <tbody>
-        {% for motorist in motorists %}
+        {% for driver in motorists %}
         <tr>
-          <td>{{motorist.id}}</td>
-          <td>{{motorist.name}}</td>
+          <td>{{driver.id}}</td>
+          <td>{{driver.name}}</td>
           <td>Em dia</td>
-          <td>{{motorist.data_json['comission']}}</td>
+          <td>{{driver.data_json['comission']}}</td>
           <td>
             <div class="input-group-prepend align-center" >
               <button type="button" class="btn btn-default dropdown-toggle " data-toggle="dropdown">
                 Action
               </button>
               <div class="dropdown-menu">
-                <a class="dropdown-item" href="edit/{{ motorist.id }}">Editar</a>
-                <a class="dropdown-item" href="revenues/show/{{ motorist.id }}">Faturamento</a>
+                <a class="dropdown-item" href="edit/{{ driver.id }}">Editar</a>
+                <a class="dropdown-item" href="revenues/show/{{ driver.id }}">Faturamento</a>
               </div>
             </div>
           </td>

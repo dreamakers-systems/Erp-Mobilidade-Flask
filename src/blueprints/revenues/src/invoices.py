@@ -1,14 +1,14 @@
 # pylint: disable= no-value-for-parameter
 """Resolving request to export invoices"""
 
-from glob import glob
 import os
 import tarfile
 from datetime import datetime
+from glob import glob
 from typing import List, Tuple
-from webbrowser import get
 
 from flask import send_file
+
 from src.blueprints.revenues.src import report
 from src.blueprints.revenues.src.load import DataExtructure
 from src.database.models.revenues import RevenuesPorcents
@@ -22,13 +22,13 @@ class Invoices:
 
     def __init__(self, daterange, option: Tuple) -> None:
         """sumary_line
-        
+
         Keyword arguments:
         datetime -- Is a daterange
-        option -- especify a motorist or all
+        option -- especify a driver or all
         Return: Return a tar object to send with a response.
         """
-        
+
         self.option = option
         self.daterange = daterange
         self.media_path = os.path.abspath('./media')
@@ -46,20 +46,19 @@ class Invoices:
                     as_attachment=True,
                     attachment_filename=os.path.join(self.media_path, f'{self.option}.png'))
                 return resp
-            
+
     def get_all_invoices(self):
         "Get invoices from all motorists."
-        
         motorists = list(
-            map(lambda motorist: motorist.name, MotoristsQuerys.show()))
+            map(lambda driver: driver.name, MotoristsQuerys.show()))
 
         motorists.__delitem__(-1)
 
         tar_path = os.path.join(self.media_path, 'result.tar')
         with tarfile.open(name=tar_path, mode='w:gz') as tar_file:
-            for motorist in motorists:
-                self.get_invoice(motorist).save(os.path.join(
-                    self.media_path, motorist + '.png'))
+            for driver in motorists:
+                self.get_invoice(driver).save(os.path.join(
+                    self.media_path, driver + '.png'))
 
             for item in os.listdir(self.media_path):
                 tar_file.add(
@@ -68,15 +67,15 @@ class Invoices:
             tar_path,
             mimetype='application/x-tar',
             as_attachment=False,
-            attachment_filename=f'Fechamento - {self.daterange}.tar',
-        )
-        
+            attachment_filename=f'Fechamento - {self.daterange}.tar',)
+
         for item in glob(f'{self.media_path}/*'):
             os.remove(item)
+
         return resp
 
     def get_invoice(self, name: str):
-        "Get invoice of a motorist"
+        "Get invoice of a driver"
         runs: List = RunsQuerys.search_daterange(
             name, self.daterange)
 

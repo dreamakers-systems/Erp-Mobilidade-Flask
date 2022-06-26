@@ -2,7 +2,7 @@
 
 import locale
 import os
-from typing import Any, Dict, List, Tuple, Type
+from typing import Dict, List
 
 import pandas as pd
 from pandas import DataFrame
@@ -25,12 +25,10 @@ class DataExtructure(DataAnalyse):
             "10":(10, -90),
             "12":(12, -85),
             "23":(23, -80)
-        }
-        """
+        }"""
 
         self.data_list = data_list
         self.porcents = porcents
-        # print(self.data_list, self.porcents)
 
     def get_data_frame(self) -> DataFrame:
         """set a data with faturation"""
@@ -43,6 +41,7 @@ class DataExtructure(DataAnalyse):
         return df_data
 
     def get_result(self) -> List:
+        """Get result is used returt final format."""
         return self.get_data_frame().values.tolist()
 
     def get_faturation(self):

@@ -2,6 +2,8 @@
 """Clientes"""
 
 
+import os
+
 from flask import Blueprint, redirect, render_template, request, url_for
 
 from src.database.querys.clients import ClientQuerys
@@ -11,7 +13,7 @@ clients_app = Blueprint('clients_app', __name__, url_prefix='/clients/')
 
 @clients_app.route('/', methods=['GET'])
 def show():
-    """Exibe a pagina de clientes"""
+    """Show client main page."""
     clients = ClientQuerys.get_all()
     return render_template('pages/clients/show.html', clients=clients)
 
@@ -30,6 +32,7 @@ def new():
 
 @clients_app.route('/editar/<int:id_cliente>', methods=['GET', 'POST'])
 def edit(id_cliente):
+    """Edit Client infos."""
     cliente = ClientQuerys.get_id(id_cliente)
     image = os.path.join('/media/equipamentos/', cliente.nome + '.jpeg')
     return render_template(
@@ -39,7 +42,6 @@ def edit(id_cliente):
 
 @clients_app.route('/delete/<int:id_cliente>', methods=['GET', 'POST'])
 def delete(id_cliente: int):
-    """Deleta um Cliente"""
-    print(id_cliente)
+    """Delete a cliente."""
     ClientQuerys.delete(id_cliente)
     return redirect(url_for('clients_app.show'))

@@ -8,14 +8,14 @@ logo_path = './src/static/dist/img/logo.png'
 
 
 def save_report(name, date_one, date_two, data_frame, motorist_id='000'):
-    """Configs"""
+    # Configs
     width = 595
     height = 842
 
-    """Page"""
+    # Page
     img = Image.new('RGBA', (width, height), color='#E5E5E5')
 
-    """Top Retangle"""
+    # Top Retangle
     top_retangle = ImageDraw.Draw(img)
     top_retangle.rectangle([(0, 0), (595, 86)], fill='#1A336B')
     top_retangle.text(
@@ -25,7 +25,7 @@ def save_report(name, date_one, date_two, data_frame, motorist_id='000'):
         font=ImageFont.truetype(font_path, 24),
     )
 
-    """Content Retangle"""
+    # Content Retangle
     content_retangle = ImageDraw.Draw(img)
     content_retangle.rectangle([(596, 86), (595, 86)], fill='#E5E5E5')
 
@@ -135,7 +135,7 @@ def save_report(name, date_one, date_two, data_frame, motorist_id='000'):
         [(400, 680), (530, 720)], fill='#E5E5E5', outline='#000000'
     )
 
-    """Footer Retangle"""
+    # Footer Retangle
     footer_retangle = ImageDraw.Draw(img)
     footer_retangle.rectangle([(0, 742), (595, 842)], fill='#1A336B')
 

@@ -8,7 +8,7 @@ class RevenuesQuery:
     def create_motorist_group(
         cls, connection, name, porcent_one, porcent_two, porcent_tree
     ):
-        """someting"""
+        """Create a driver group"""
         new_rule = RevenuesPorcents(
             name=name,
             porcent_one=porcent_one,
@@ -21,20 +21,22 @@ class RevenuesQuery:
 
     @classmethod
     @db_connector
-    def all(cls, connection):
-        """someting"""
+    def get_all(cls, connection):
+        """Get all drives groups in database"""
         return connection.session.query(RevenuesPorcents).all()
 
     @classmethod
     @db_connector
-    def update_porcent(cls, connection, porcent_one, porcent_two, porcent_tree):
-        """someting"""
+    def update_porcent(
+        cls, connection, porcent_one, porcent_two, porcent_tree
+    ):
+        """Update a porcent."""
         return connection.session.query(RevenuesPorcents).all()
 
     @classmethod
     @db_connector
     def get_by_name(cls, connection, name):
-        """someting"""
+        """Get a drive's groups with driver name."""
         return (
             connection.session.query(RevenuesPorcents)
             .filter_by(name=name)

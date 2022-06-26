@@ -15,17 +15,18 @@ class MotoristsQuerys:
     @classmethod
     @db_connector
     def show(cls, connection) -> List:
-        """Retorna todos os motoristas na base de dados"""
+        """Return all motorists in database"""
         return connection.session.query(Motorists).all()
 
     @classmethod
     @db_connector
     def check_name(cls, connection, name: str):
+        """Check with name already exists in database."""
         return connection.session.query(Motorists).filter_by(name=name).first()
 
     @classmethod
     @db_connector
-    def create_motorist(cls, connection, name, data_json):
+    def new(cls, connection, name, data_json):
         """someting"""
         check_name = (
             connection.session.query(Motorists).filter_by(name=name).first()
@@ -38,25 +39,29 @@ class MotoristsQuerys:
     @classmethod
     @db_connector
     def get_id(cls, connection, motorist_id):
-        """someting"""
-        return connection.session.query(Motorists).filter_by(id=motorist_id).first()
-
-    @classmethod
-    @db_connector
-    def delete(cls, connection, motorist_id) -> None:
-        """Delete a motorist by id"""
-        motorist = (
+        """Get a driver by id."""
+        return (
             connection.session.query(Motorists)
             .filter_by(id=motorist_id)
             .first()
         )
-        connection.session.delete(motorist)
+
+    @classmethod
+    @db_connector
+    def delete(cls, connection, motorist_id) -> None:
+        """Delete a driver by id"""
+        driver = (
+            connection.session.query(Motorists)
+            .filter_by(id=motorist_id)
+            .first()
+        )
+        connection.session.delete(driver)
         connection.session.commit()
 
     @classmethod
     @db_connector
     def create_motorists_runs(cls, connection, name):
-        """someting"""
+        """Create a table to archive driver runs"""
         connection.session.execute(
             'CREATE TABLE IF NOT EXISTS {}('
             'date_time DATETIME UNIQUE, '
@@ -64,11 +69,13 @@ class MotoristsQuerys:
             'operator VARCHAR(1));'.format(name.replace(' ', '_'))
         )
         connection.session.commit()
-        
+
     @classmethod
     @db_connector
     def get_group(cls, connection, name) -> Tuple:
-        """Return a motorists group"""
-        motorist: Motorists = connection.session.query(Motorists).filter_by(name=name).first()
-        group: json = motorist.data_json
+        """Return the group to which a driver belongs"""
+        driver: Motorists = (
+            connection.session.query(Motorists).filter_by(name=name).first()
+        )
+        group: json = driver.data_json
         return group['comission']

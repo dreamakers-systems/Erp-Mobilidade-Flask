@@ -3,17 +3,13 @@
 
 
 import datetime
-import glob
-import os
 import re
-import tarfile
 
-from flask import (Blueprint, redirect, render_template, request, send_file,
+from flask import (Blueprint, redirect, render_template, request,
                    url_for)
 
-from src.blueprints.revenues.src import DataExtructure, report
 from src.blueprints.revenues.src.invoices import Invoices
-from src.database.querys import MotoristsQuerys, RevenuesQuery, RunsQuerys
+from src.database.querys import MotoristsQuerys, RevenuesQuery
 
 revenues_app = Blueprint('revenues_app', __name__, url_prefix='/revenues/')
 
@@ -21,7 +17,7 @@ revenues_app = Blueprint('revenues_app', __name__, url_prefix='/revenues/')
 @revenues_app.route('/settings', methods=['GET'])
 def show():
     """Get all porcent groups in database"""
-    porcents = RevenuesQuery.all()
+    porcents = RevenuesQuery.get_all()
     return render_template('pages/revenues/show.html', porcents=porcents)
 
 
@@ -45,21 +41,17 @@ def create():
 @revenues_app.route('/edit/<porcent_id>', methods=['POST', 'GET'])
 def edit(porcent_id):
     """Edit rules of a porcent groups"""
-    if request.method == "POST":
+    if request.method == 'POST':
 
-        porcent_one = request.form.get("porcent_one")
-        porcent_two = request.form.get("porcent_two")
-        porcent_tree = request.form.get("porcent_tree")
+        porcent_one = request.form.get('porcent_one')
+        porcent_two = request.form.get('porcent_two')
+        porcent_tree = request.form.get('porcent_tree')
 
-        RevenuesQuery.update_porcent(
-            porcent_one,
-            porcent_two,
-            porcent_tree
-        )
+        RevenuesQuery.update_porcent(porcent_one, porcent_two, porcent_tree)
 
-        return redirect(url_for("revenues_app.show"))
+        return redirect(url_for('revenues_app.show'))
 
-    porcent = RevenuesQuery.find(porcent_id)
+    porcent = RevenuesQuery.get_by_name(porcent_id)
     print(porcent)
     return render_template('pages/revenues/edit.html', porcent=porcent)
 
@@ -68,9 +60,7 @@ def edit(porcent_id):
 def invoices():
     """Export  invoice from motorists"""
 
-    motorists = list(
-        map(lambda motorist: motorist.name, MotoristsQuerys.show())
-    )
+    motorists = list(map(lambda driver: driver.name, MotoristsQuerys.show()))
 
     motorists.__delitem__(-1)
 
@@ -90,10 +80,10 @@ def invoices():
         date_time_two = datetime.datetime.strptime(
             date_two, '%m/%d/%Y'
         ).strftime('%Y-%m-%d %H:%M:%S')
-        
+
         resp = Invoices((date_time_one, date_time_two), option).get_result()
-        
+
         return resp
-    
+
     motorists.insert(0, 'TODOS')
     return render_template('pages/revenues/invoices.html', motorists=motorists)

@@ -2,7 +2,7 @@
 
 import locale
 from collections import Counter
-from typing import Dict, List, Tuple
+from typing import List
 
 locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
 
@@ -12,7 +12,7 @@ class DataAnalyse:
 
     def analyse_faturation(self) -> List:
         """Pick incidences in the list"""
-        incidences = Counter([(item[1], item[2]) for item in self.data_list])
+        incidences = Counter([(item[1], item[2]) for item in self.data_list]) # pylint: disable=no-member
         result_list = list(
             [[item[0], incidences[item], item[1]] for item in incidences]
         )
@@ -55,7 +55,7 @@ class DataAnalyse:
 
     def set_porcent(self, data) -> List:
         """define a porcent values for incidences"""
-        porcents = tuple(self.porcents.values()) # pylint: disable=no-member
+        porcents = tuple(self.porcents.values())   # pylint: disable=no-member
         print(porcents)
         if data[0] >= 0 and data[0] <= 12:
             if data[2] == '+':
