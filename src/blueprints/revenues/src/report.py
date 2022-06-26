@@ -1,5 +1,5 @@
-import os
-from datetime import date, datetime, timedelta
+"""Create images with pillow. This images are a report for the drive's."""
+
 
 from PIL import Image, ImageDraw, ImageFont
 

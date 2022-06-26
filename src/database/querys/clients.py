@@ -1,6 +1,5 @@
 from typing import List
 
-from src.database import DBConnectionHendler
 from src.database.db_connection import db_connector
 from src.database.models import Client
 

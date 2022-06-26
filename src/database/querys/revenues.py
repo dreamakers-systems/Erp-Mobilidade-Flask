@@ -1,8 +1,13 @@
+# pylint: disable=unused-argument
+"""Revenues Querys"""
+
+
 from src.database.db_connection import db_connector
 from src.database.models import RevenuesPorcents
 
 
 class RevenuesQuery:
+    """Revenes Sql Querys"""
     @classmethod
     @db_connector
     def create_motorist_group(
