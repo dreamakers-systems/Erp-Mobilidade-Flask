@@ -1,5 +1,4 @@
-# pylint: disable: too-few-public-methods
-# pylint: disable=consider-using-f-string
+# pylint: disable=too-few-public-methods, consider-using-f-string
 """User Querys"""
 
 import json
@@ -31,7 +30,7 @@ class MotoristsQuerys:
         check_name = (
             connection.session.query(Motorists).filter_by(name=name).first()
         )
-        if check_name == None:
+        if check_name == None: #pylint: disable=singleton-comparison
             new_user = Motorists(name=name, data_json=data_json)
             connection.session.add(new_user)
             connection.session.commit()

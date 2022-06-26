@@ -33,9 +33,9 @@ def init_app() -> Flask:
     app = Flask(__name__)
 
     # Setando configurações da aplicação
-    from .settings import Config
+    from .settings import TestingConfig
 
-    app.config.from_object(Config)
+    app.config.from_object(TestingConfig)
 
     # Configurando banco de dados
     from .database import Base, DBConnectionHendler

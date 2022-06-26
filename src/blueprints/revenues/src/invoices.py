@@ -12,7 +12,7 @@ from flask import send_file
 from src.blueprints.revenues.src import report
 from src.blueprints.revenues.src.load import DataExtructure
 from src.database.models.revenues import RevenuesPorcents
-from src.database.querys.motorists import MotoristsQuerys
+from src.database.querys.drivers import MotoristsQuerys
 from src.database.querys.revenues import RevenuesQuery
 from src.database.querys.runs import RunsQuerys
 
