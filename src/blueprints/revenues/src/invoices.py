@@ -5,6 +5,7 @@ import os
 import tarfile
 from datetime import datetime
 from glob import glob
+from tempfile import TemporaryDirectory
 from typing import List, Tuple
 
 from flask import send_file
@@ -47,32 +48,41 @@ class Invoices:
                     attachment_filename=os.path.join(self.media_path, f'{self.option}.png'))
                 return resp
 
+
+    def save_files(self, drivers):
+        with TemporaryDirectory() as tmpdir:
+            tar_path = os.path.join(tmpdir, 'result.tar')
+            
+            with tarfile.open(name=tar_path, mode='w:gz') as tar_file:
+                
+                for driver in drivers:
+                    self.get_invoice(driver).save(os.path.join(
+                        tmpdir, driver + '.png'))
+
+                for item in os.listdir(tmpdir):
+                    tar_file.add(
+                        os.path.join(tmpdir, item),  arcname=f'{item}')
+                    
+            resp = send_file(
+                tar_path,
+                mimetype='application/x-tar',
+                as_attachment=False,
+                attachment_filename=f'Fechamento - {self.daterange}.tar',)
+            
+            return resp
+            
     def get_all_invoices(self):
         "Get invoices from all motorists."
-        motorists = list(
+        drivers = list(
             map(lambda driver: driver.name, MotoristsQuerys.show()))
 
-        motorists.__delitem__(-1)
-
-        tar_path = os.path.join(self.media_path, 'result.tar')
-        with tarfile.open(name=tar_path, mode='w:gz') as tar_file:
-            for driver in motorists:
-                self.get_invoice(driver).save(os.path.join(
-                    self.media_path, driver + '.png'))
-
-            for item in os.listdir(self.media_path):
-                tar_file.add(
-                    os.path.join(self.media_path, item),  arcname=f'{item}')
-        resp = send_file(
-            tar_path,
-            mimetype='application/x-tar',
-            as_attachment=False,
-            attachment_filename=f'Fechamento - {self.daterange}.tar',)
+        drivers.__delitem__(-1)
+        
 
         for item in glob(f'{self.media_path}/*'):
             os.remove(item)
 
-        return resp
+        return self.save_files(drivers)
 
     def get_invoice(self, name: str):
         "Get invoice of a driver"

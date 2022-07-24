@@ -1,10 +1,13 @@
 from sqlalchemy import Column, DateTime, Integer, String
 
-from src.database import RunsBase
+from sqlalchemy.ext.declarative import declarative_base
+
 
 
 def runs_factory(name: str):
     """Criar Uma istancia de Runs de Acordo com o nome especifico"""
+    RunsBase = declarative_base(class_registry=dict())
+    
 
     class Runs(RunsBase):
         """Tabela relacionada a Motorists"""

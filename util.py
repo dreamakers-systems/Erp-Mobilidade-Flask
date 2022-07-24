@@ -14,7 +14,6 @@ regex = re.compile(
 
 def is_valid(email):
     verify_email = re.fullmatch(regex, email)
-    print(verify_email)
     if verify_email:
         print('Valid email')
     else:
@@ -22,7 +21,10 @@ def is_valid(email):
 
 
 def create_user(user_data: List):
-    """Create new user with command line."""
+    """Create new user with command line.
+    exemple:
+    python utils.py acesso@krypta.com admiriano
+    """
     user_data.__delitem__(0)
     if is_valid(user_data[1]) is False:
         pass   # pylint: disable=multiple-statements

@@ -25,7 +25,7 @@ class MotoristsDataParsing:
         for driver in self.request_files:
             data = ParsedMotoristData(driver).get()
             name = driver.filename[:-4][29:].replace(' ', '_')
-            data_json = {'comission': 'defout'}
+            data_json = {'comission': 'default'}
             MotoristsQuerys.new(name, data_json)
             RunsQuerys.create_table(name)
             RunsQuerys.insert(name, data)

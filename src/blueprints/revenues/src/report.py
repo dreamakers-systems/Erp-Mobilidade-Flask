@@ -232,5 +232,6 @@ def save_report(name, date_one, date_two, data_frame, motorist_id='000'):
         valor = valor + 20
         logo = Image.open(logo_path)
         img.alpha_composite(logo, (370, 16))
+        img.convert('RGB')
 
     return img
